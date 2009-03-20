@@ -1,0 +1,92 @@
+!!NA_MULTIPLE_ALIGNMENT 1.0
+
+   MSF: 648   Type: N    Check:  3308   ..
+
+
+  Name: pepe1/1-600 Len: 648  Check:  149  Weight: 1.00
+  Name: pepe4/1-600 Len: 648  Check: 1992  Weight: 1.00
+  Name: pepe5/1-600 Len: 648  Check: 5399  Weight: 1.00
+  Name: pepe2/1-600 Len: 648  Check: 5619  Weight: 1.00
+  Name: pepe3/1-600 Len: 648  Check:  149  Weight: 1.00
+
+
+//
+
+pepe1/1-600 ctgtctaata tctcatattt atgaattatg ggcgaacgac gggaattgaa
+pepe4/1-600 ~~~~~~~~~~ ~~~~~~~~~~ ~~~~~~~~tg ggcgaacgac gggaattgaa
+pepe5/1-600 ~~~~~~~~~~ ~~~~~~~~~~ ~~~~~~~~tg ggcgaacgac gggaattgaa
+pepe2/1-600 ctgtctaata tctcatattt atgaattatg ggcgaacgac gggaattgaa
+pepe3/1-600 ctgtctaata tctcatattt atgaattatg ggcgaacgac gggaattgaa
+
+pepe1/1-600 cccgcgcatg gtggattcac aatccactgc cttgatccac ttggctacat
+pepe4/1-600 cccgcgcatg gtggattcac aatccactgc cttgatccac ttggctacat
+pepe5/1-600 cccgcgcatg gtggattcac aatccactgc cttgatccac ttggctacat
+pepe2/1-600 cccgcgcatg gtggattcac aatccactgc cttgatccac ttggctacat
+pepe3/1-600 cccgcgcatg gtggattcac aatccactgc cttgatccac ttggctacat
+
+pepe1/1-600 ccgccccctc gcctacttac attccatttt tacattattt aaattcgaaa
+pepe4/1-600 ccgccccctc gcctacttac attccatttt tacattattt aaattagaaa
+pepe5/1-600 ccgccccccc gcctacttac attccatttt tacattattt aaattcgaaa
+pepe2/1-600 ccgccccctc gcctacttac attccatttt tacattattt aaattcgaaa
+pepe3/1-600 ccgccccctc gcctacttac attccatttt tacattattt aaattcgaaa
+
+pepe1/1-600 acaaaagatt caagttcgaa tatttatctt ctttcttatt tcaatgatat
+pepe4/1-600 acaaaagatt caagttcgaa tatttctctt ctttcttagt tcaatgatat
+pepe5/1-600 acaaaagatt caagttcgaa tatttatctt ctttcttatt tcaatgatat
+pepe2/1-600 acaaaagatt caagttcgaa tatttatctt ctttcttatt tcaatgatat
+pepe3/1-600 acaaaagatt caagttcgaa tatttatctt ctttcttatt tcaatgatat
+
+pepe1/1-600 tattattttg attattattt caaagataag aatatgaagt aaaaattgta
+pepe4/1-600 tattattttg attattattt caaaaataag aatatgaagt caaaatttta
+pepe5/1-600 tattattttg attattattt caaagataag aatatgaagt aaaaattgta
+pepe2/1-600 tattattttg attattattt caaagataag aatatgaagt aaaaattgta
+pepe3/1-600 tattattttg attattattt caaagataag aatatgaagt aaaaattgta
+
+pepe1/1-600 ttttttgtga aatgaaataa aaaagatata gtaacattag caacaagagg
+pepe4/1-600 ttttttgtga aatgaaataa aaaagatata gtaacattag taacaagagg
+pepe5/1-600 ttttttgtga aatgaaataa aaaagatata gtaacattag caacaagagg
+pepe2/1-600 ttttttgtga aatgaaataa aaaagatata gtaacattag caacaagagg
+pepe3/1-600 ttttttgtga aatgaaataa aaaagatata gtaacattag caacaagagg
+
+pepe1/1-600 aacaagttat atttctacaa ttttaaataa atagaaaata aaa.atcgaa
+pepe4/1-600 aacacgttat atttctacaa ttttcaataa atagaaaata aaacatagaa
+pepe5/1-600 aacaagttat atttctacaa ttttaaataa atagaaaata aaa.atcgaa
+pepe2/1-600 aacaagttat atttctacaa ttttaaataa atagaaaata aaa.atcgaa
+pepe3/1-600 aacaagttat atttctacaa ttttaaataa atagaaaata aaa.atcgaa
+
+pepe1/1-600 tactcaatca tgaataaat. .......... ..gcaagcaa ataccctctc
+pepe4/1-600 tactcaatca tgaataaata tcatgaataa atgcaagcaa ataccctctc
+pepe5/1-600 tactcaatca tgaataaat. .......... ..gcaagcaa ataccctctc
+pepe2/1-600 tactcaatca tgaataaat. .......... ..gcaagcaa ataccctctc
+pepe3/1-600 tactcaatca tgaataaat. .......... ..gcaagcaa ataccctctc
+
+pepe1/1-600 tttctttttc gataatgtaa acaaaaaagt ctatgtcagt aaaatactag
+pepe4/1-600 tttctttttc gataatgtaa acaaaaaagt ctatgtcagt aaaatactag
+pepe5/1-600 tttctttttc gataatgtaa acaaaaaagt ctatgtcagt aaaatactag
+pepe2/1-600 tttctttttc gataatgtaa acaaaaaagt ctatgtcagt aaaatactag
+pepe3/1-600 tttctttttc gataatgtaa acaaaaaagt ctatgtcagt aaaatactag
+
+pepe1/1-600 gaaattaata aagaaaaaaa aaaagaaa.. ggagcaatag caccctcttg
+pepe4/1-600 gaaattagta aagaaaaaaa aaaaaagaaa ggagcaatag caccctcttg
+pepe5/1-600 gaaattaata aagaaaaaaa agaaa..... ggagcaatag caccctcttg
+pepe2/1-600 gaaattaata aagaaaaaaa aaaagaaaa. ggagcaatag cacctttttg
+pepe3/1-600 gaaattaata aagaaaaaaa aaaagaaa.. ggagcaatag caccctcttg
+
+pepe1/1-600 acagaacaag aaaatgatta ttgctccttt cttttcaaaa cctcctatag
+pepe4/1-600 acagaacaag aaaatgatta ttgctccttt cttttcaaaa cctcctatag
+pepe5/1-600 acagaacaag aaa.tgatta ttgctccttt cttttcaaaa cctcctatag
+pepe2/1-600 acagaacaag aaaatgatta ttgctccttt cttttcaaaa cctcctatag
+pepe3/1-600 acagaacaag aaaatgatta ttgctccttt cttttcaaaa cctcctatag
+
+pepe1/1-600 actaggctgg gatcttatcc atttgtagat ggagcttcga tagcagctag
+pepe4/1-600 actaggctag gatcttatcc atttgtagat ggagcttcga tagcagctag
+pepe5/1-600 actaggctgg gatcttatcc atttgtagat ggagcttcga tagcagctag
+pepe2/1-600 actaggctgg gattttatcc atttgtagat ggagcttcga tagcagctag
+pepe3/1-600 actaggctgg gatcttatcc atttgtagat ggagcttcga tagcagctag
+
+pepe1/1-600 gtctagaggg aagtta~~~~ ~~~~~~~~~~ ~~~~~~~~~~ ~~~~~~~~
+pepe4/1-600 gtctagaggg aagttatgag cattacgt~~ ~~~~~~~~~~ ~~~~~~~~
+pepe5/1-600 gtctagaggg aagttatgag cattacgttc atgcataact tccatacc
+pepe2/1-600 gtctagaggg aagtt~~~~~ ~~~~~~~~~~ ~~~~~~~~~~ ~~~~~~~~
+pepe3/1-600 gtctagaggg aagtta~~~~ ~~~~~~~~~~ ~~~~~~~~~~ ~~~~~~~~
+
