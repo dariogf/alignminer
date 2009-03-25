@@ -1,0 +1,58 @@
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<title>draw graph</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!-- <link rel="stylesheet" href="css/alignminer.css" type="text/css" /> -->
+
+		<!-- framework ajax -->
+		<script src="js/prototype.js" language="JavaScript" type="text/javascript"></script>
+
+		<!-- framework ajax -->
+		<script src="js/data.js" language="JavaScript" type="text/javascript"></script>
+
+		<!-- framework ajax -->
+		<script src="js/TGraphObject.js" language="JavaScript" type="text/javascript"></script>
+		
+		
+		<script src="js/TGraph.js" language="JavaScript" type="text/javascript"></script>
+
+		<script src="js/TLimitGraph.js" language="JavaScript" type="text/javascript"></script>
+
+
+		<!-- framework ajax -->
+		<script src="js/TGraphBoard.js" language="JavaScript" type="text/javascript"></script>
+
+		<script language="JavaScript" type="text/javascript">
+
+			window.onload = function () {
+				
+				var gb = new TGraphBoard('idCanvas');
+				
+				var g1 = new TGraph(gb,'#FF0000',data1);
+
+				var g2 = new TGraph(gb,'#0000FF',data2);
+				
+				var l = new TLimitGraph(gb,'#00ffff',1.2,0.9);
+
+				
+				gb.paint();
+				
+			}
+		</script>
+
+	</head>
+
+	<body>
+
+			<canvas id="idCanvas" height=200 width=900></canvas>
+
+			<div id="evtInfo">
+				
+			</div>
+
+	</body>
+
+</html>
+

@@ -1,0 +1,72 @@
+2008/05/13 18:57:00 Starting execution 1210697813344
+2008/05/13 18:57:00 Loading:/srv/www/htdocs/alignminer/tmpdata/1210697813344/alignment.file
+2008/05/13 18:57:00 Detected file type: msf
+2008/05/13 18:57:00 Processing alignment
+2008/05/13 18:57:00 Alignments max length: 16764
+2008/05/13 18:57:00 Number of sequences found in alignment: 4
+2008/05/13 18:57:00 Detected alphabet: dna
+2008/05/13 18:57:00 Processing sequences
+2008/05/13 18:57:01 Frequency processing finalized
+2008/05/13 18:57:01 Calculating consensus with bioperl
+2008/05/13 18:57:04 Consensus calculated
+2008/05/13 18:57:04 Calculating Function adnW.
+2008/05/13 18:57:04 Calculating [0], wait...
+2008/05/13 18:57:05 Calculating [4000], wait...
+2008/05/13 18:57:06 Calculating [8000], wait...
+2008/05/13 18:57:07 Calculating [12000], wait...
+2008/05/13 18:57:07 Calculating [16000], wait...
+2008/05/13 18:57:08 Calculating Limits
+2008/05/13 18:57:08      adnW: [MAD_MEDIAN:0,MED:1]
+2008/05/13 18:57:08      MAD == 0 in adnW: [MAD_MEAN:0.0541861609069642,MED:1]
+2008/05/13 18:57:08 Limits adnW: [0.919663597839335,1.08033640216067]
+2008/05/13 18:57:08 Calculating Limits FFT
+2008/05/13 18:57:08      adnW: [MAD_MEDIAN FFT:0.00448824432649841,MED FFT:0.999449250182886]
+2008/05/13 18:57:08 Limits FFT adnW: [0.993345728961534,1.00665427103847]
+2008/05/13 18:57:08 Filtering regions adnW_below limit: 0.919663597839335 ===  adnW_below ===
+2008/05/13 18:57:08 Filtering regions adnW_above limit: 1.08033640216067 ===  adnW_above ===
+2008/05/13 18:57:08 Filtering SNP adnW_snp limit: 0.919663597839335 ===  adnW_snp ===
+2008/05/13 18:57:08 Filtering regions adnW_belowFFT limit: 0.993345728961534 ===  adnW_belowFFT ===
+2008/05/13 18:57:08 Restrict adnW_belowFFT using mandatoryRegions.
+2008/05/13 18:57:11 Filtering regions adnW_aboveFFT limit: 1.00665427103847 ===  adnW_aboveFFT ===
+2008/05/13 18:57:11 Restrict adnW_aboveFFT using mandatoryRegions.
+2008/05/13 18:57:12 Calculating Function generalW, using simple.matrix
+2008/05/13 18:57:12 Calculating [0], wait...
+2008/05/13 18:57:13 Calculating [4000], wait...
+2008/05/13 18:57:15 Calculating [8000], wait...
+2008/05/13 18:57:16 Calculating [12000], wait...
+2008/05/13 18:57:18 Calculating [16000], wait...
+2008/05/13 18:57:18 Calculating Limits
+2008/05/13 18:57:18      generalW: [MAD_MEDIAN:0,MED:9]
+2008/05/13 18:57:18      MAD == 0 in generalW: [MAD_MEAN:0.499578265935315,MED:9]
+2008/05/13 18:57:18 Limits generalW: [8.2593252629243,9.7406747370757]
+2008/05/13 18:57:18 Calculating Limits FFT
+2008/05/13 18:57:18      generalW: [MAD_MEDIAN FFT:0.0359480022194534,MED FFT:8.99555244764519]
+2008/05/13 18:57:18 Limits FFT generalW: [8.94670349190944,9.05329650809056]
+2008/05/13 18:57:18 Filtering regions generalW_below limit: 8.2593252629243 ===  generalW_below ===
+2008/05/13 18:57:18 Filtering regions generalW_above limit: 9.7406747370757 ===  generalW_above ===
+2008/05/13 18:57:18 Filtering SNP generalW_snp limit: 8.2593252629243 ===  generalW_snp ===
+2008/05/13 18:57:18 Filtering regions generalW_belowFFT limit: 8.94670349190944 ===  generalW_belowFFT ===
+2008/05/13 18:57:18 Restrict generalW_belowFFT using mandatoryRegions.
+2008/05/13 18:57:21 Filtering regions generalW_aboveFFT limit: 9.05329650809056 ===  generalW_aboveFFT ===
+2008/05/13 18:57:21 Restrict generalW_aboveFFT using mandatoryRegions.
+2008/05/13 18:57:22 Calculating Function entropy, using simple.matrix
+2008/05/13 18:57:22 Calculating [0], wait...
+2008/05/13 18:57:23 Calculating [4000], wait...
+2008/05/13 18:57:25 Calculating [8000], wait...
+2008/05/13 18:57:26 Calculating [12000], wait...
+2008/05/13 18:57:28 Calculating [16000], wait...
+2008/05/13 18:57:28 Calculating Limits
+2008/05/13 18:57:28      entropy: [MAD_MEDIAN:0,MED:0]
+2008/05/13 18:57:28      MAD == 0 in entropy: [MAD_MEAN:0.0788392639217678,MED:0]
+2008/05/13 18:57:28 Limits entropy: [-0.116887092690413,0.116887092690413]
+2008/05/13 18:57:28 Calculating Limits FFT
+2008/05/13 18:57:28      entropy: [MAD_MEDIAN FFT:0.00705256784103497,MED FFT:-0.000838082662056925]
+2008/05/13 18:57:28 Limits FFT entropy: [-0.0104561370811184,0.0104561370811184]
+2008/05/13 18:57:28 Filtering regions entropy_below limit: -0.116887092690413 ===  entropy_below ===
+2008/05/13 18:57:29 Filtering regions entropy_above limit: 0.116887092690413 ===  entropy_above ===
+2008/05/13 18:57:29 Filtering SNP entropy_snp limit: -0.116887092690413 ===  entropy_snp ===
+2008/05/13 18:57:29 Filtering regions entropy_belowFFT limit: -0.0104561370811184 ===  entropy_belowFFT ===
+2008/05/13 18:57:29 Restrict entropy_belowFFT using mandatoryRegions.
+2008/05/13 18:57:32 Filtering regions entropy_aboveFFT limit: 0.0104561370811184 ===  entropy_aboveFFT ===
+2008/05/13 18:57:32 Restrict entropy_aboveFFT using mandatoryRegions.
+2008/05/13 18:57:32 The END.

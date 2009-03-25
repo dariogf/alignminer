@@ -1,0 +1,216 @@
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<title>draw graph</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<!-- <link rel="stylesheet" href="css/alignminer.css" type="text/css" /> -->
+
+		<!-- framework ajax -->
+		<script src="../js/prototype/prototype.js" language="JavaScript" type="text/javascript"></script>
+
+		<script src="../js/canvas/canvastext.js" language="JavaScript" type="text/javascript"></script>
+		
+		<!-- framework ajax -->
+		<script src="../js/data.js" language="JavaScript" type="text/javascript"></script>
+
+		<script src="../js/canvas/TXYCanvas.js" language="JavaScript" type="text/javascript"></script>
+		<script src="../js/canvas/TScaleXYCanvas.js" language="JavaScript" type="text/javascript"></script>
+
+		<!-- framework ajax -->
+		<script src="../js/canvas/TGraphObject.js" language="JavaScript" type="text/javascript"></script>
+		
+		<script src="../js/canvas/TXGrid.js" language="JavaScript" type="text/javascript"></script>
+				<script src="../js/canvas/TYGrid.js" language="JavaScript" type="text/javascript"></script>
+		
+		<script src="../js/canvas/TGraph.js" language="JavaScript" type="text/javascript"></script>
+
+		<script src="../js/canvas/TLimitGraph.js" language="JavaScript" type="text/javascript"></script>
+
+		<!-- framework ajax -->
+		<script src="../js/canvas/TGraphBoard.js" language="JavaScript" type="text/javascript"></script>
+		
+		<!-- ========================================== -->		
+		<!-- CLASES PARA Alignminer -->
+		<!-- ========================================== -->
+
+		<!-- Para mostrar las regiones -->
+		<script src="../js/am/TRegions.js" language="JavaScript" type="text/javascript"></script>
+		
+
+		<script language="JavaScript" type="text/javascript">
+
+			window.onload = function () {
+				
+				// var can = new TScaleXYCanvas('idCanvas');
+				// can.beginPath();
+				// can.moveTo(100,100);
+				// can.lineTo(0,0);
+				// can.stroke();
+				// can.scaleTo(1,1);
+				// can.scrollTo(0,0);
+				// can.strokeRect(20,20,-15,-15);
+				// 
+				// 
+				
+				// can.scaleTo(6,6);
+				// can.scrollTo(0,0);
+				// can.strokeRect(0,0,10,10);
+				// 
+				// for (var i=0; i < 10; i++) {
+				// 	can.scrollBy(i,0);
+				// 	can.strokeRect(1,1,10,10);
+				// };
+				
+				var regionsCONSERVATION = new TRegions('CONSERVATION',0,'generalW', 'aboveFFT','aboveTD');
+	      // 
+	      var regionsDIVERGENCE = new TRegions('DIVERGENCE',0, 'generalW', 'belowFFT','belowTD');
+	      //  
+	      var regionsSNP = new TRegions('SNP',0, 'generalW' ,'snp','snpTD');
+				
+				
+
+				gb = new TGraphBoard('idCanvas');
+				
+				var xg = new TXGrid(gb,'#C8CACA',50);
+				
+				var yg = new TYGrid(gb,'#C8CACA',0.2);
+				
+				var g1 = new TGraph(gb,'#FF0E06',data1,regionsCONSERVATION,regionsSNP,regionsDIVERGENCE);
+
+				// yg.separation = ;
+				var ysep = ((gb.maxValue-gb.minValue));
+				
+				$('evtInfo').update('sep'+ysep);
+				
+				ysep=Math.round(ysep)/10;
+				
+				yg.separation = ysep;
+				
+				$('evtInfo').insert('sep'+ysep);
+				
+				
+				// {"limit1":-0.668472722960852,"limit2":0.668472722960852}
+				var l1 = new TLimitGraph(gb,'#FF0803',limits1.limit1,limits1.limit2);
+				
+				var g2 = new TGraph(gb,'#3811F0',data2);
+				
+				// {"limit1FFT":-0.321975751959829,"limit2FFT":0.321975751959829}
+				var l2 = new TLimitGraph(gb,'#1622F1',limits2.limit1FFT,limits2.limit2FFT);
+				
+				gb.paint();
+				
+				gb.addEvents();
+				
+			}
+			
+			function topng () {
+				
+				    // grab target image
+				    var miimg = $("chart");
+				
+				    // create canvas
+				    var micanvas = $("idCanvas");
+
+				    // create a data url from the canvas
+				    var midataUrl = micanvas.toDataURL('image/png');
+						// $('evtInfo').update(midataUrl);
+				    // apply results to the target image
+				    miimg.src = midataUrl;
+						//return "";
+				// $('evtInfo').update(can.toDataURL('image/png', ''));
+			}
+
+			function getSnapshotURL () {
+								
+				    // create canvas
+				    var micanvas = $("idCanvas");
+
+				    // create a data url from the canvas
+
+				    var midataUrl = micanvas.toDataURL('image/png');
+				
+						var midata2 = midataUrl.replace('image/png', 'image/octet-stream');
+						
+						document.location.href = midata2;
+						
+		}
+			
+			
+			
+			// function saveCanvas(canvas, destFile) {
+			//   // convert string filepath to an nsIFile
+			//   var file = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
+			// 
+			//   file.initWithPath(destFile);
+			// 
+			//   // create a data url from the canvas and then create URIs of the source and targets  
+			//   var io = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
+			//   var source = io.newURI(canvas.toDataURL("image/png", ""), "UTF8", null);
+			//   var target = io.newFileURI(file);
+			// 
+			//   // prepare to save the canvas data
+			//   var persist = Components.classes["@mozilla.org/embedding/browser/nsWebBrowserPersist;1"].createInstance(Components.interfaces.nsIWebBrowserPersist);
+			// 
+			//   persist.persistFlags = Components.interfaces.nsIWebBrowserPersist.PERSIST_FLAGS_REPLACE_EXISTING_FILES;
+			// 
+			//   persist.persistFlags |= Components.interfaces.nsIWebBrowserPersist.PERSIST_FLAGS_AUTODETECT_APPLY_CONVERSION;
+			// 
+			//   // displays a download dialog (remove these 3 lines for silent download)
+			//   var xfer = Components.classes["@mozilla.org/transfer;1"].createInstance(Components.interfaces.nsITransfer);
+			//   xfer.init(source, target, "", null, null, null, persist);
+			//   persist.progressListener = xfer;
+			// 
+			//   // save the canvas data to the file
+			//   persist.saveURI(source, null, null, null, null, file);
+			// }
+			
+		</script>
+
+	</head>
+
+	<body>
+			<table border="0" cellspacing="5" cellpadding="5">
+				<tr><th>Header</th></tr>
+				<tr><td>Data</td></tr>
+				<tr><td>Data</td></tr>
+				<tr><td>Data</td></tr>
+				<tr><td>Data</td></tr>
+				<tr><td>Data</td></tr>
+				<tr><td>Data</td></tr>
+			</table>
+			<canvas id="idCanvas" height=200 width=900></canvas>
+			<canvas id="idCanvas2" height=50 width=100></canvas>
+			
+			<img id="chart">
+			<br>
+			
+			<a href="javascript:gb.centerGraphsAt(0,0,-1,false,true);">inicio</a>
+			&nbsp;
+			<a href="javascript:gb.centerGraphsAt(10,15,0,true,true);">pos10</a>
+			&nbsp;
+			<a href="javascript:gb.centerGraphsAt(data1.length-10,data1.length-5,0,true,true);">posLength-10</a>
+			&nbsp;
+			<a href="javascript:gb.centerGraphsAt(20,50,0,true,true);">20-50</a>
+			&nbsp;
+			<a href="javascript:gb.centerGraphsAt(data1.length,0,1,false,true);">final</a>
+			&nbsp;&nbsp;&nbsp;Escala eje X:
+			<a href="javascript:gb.scaleXTo(2);">2</a>
+			<a href="javascript:gb.scaleXTo(4);">4</a>
+			<a href="javascript:gb.scaleXTo(6);">6</a>
+			
+			<a href="javascript:topng();">Save Canvas</a>
+			
+			<a href="javascript:getSnapshotURL();">Snapshot</a>
+			<a target="_blank" href="javascript:getSnapshotURL();">snap2 </a>
+			
+			<div id="evtInfo">
+				
+			</div>
+
+	</body>
+
+</html>
+
+
+
