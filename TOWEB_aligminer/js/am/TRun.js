@@ -242,7 +242,8 @@ var TRun = Class.create({
       // resalta la línea de la tabla de regiones actual
       $(this.currentRegion+this.currentPos).addClassName('regionTableTRResaltada');
       
-      $('alignmentDIV').show();
+      $('alignmentDIV').show();  
+      $('alignmentResultDIV').show();
     
   },
   
@@ -267,7 +268,20 @@ var TRun = Class.create({
     $('graphCanvas').appear();
     
     $('alignmentDIV').hide();
+    $('alignmentResultDIV').hide();
   },
+  
+  
+  redrawPositions : function(){
+      if (this.currentFrom>=0) {
+        this.showPosition(this.currentFrom,this.currentTo,this.currentRegion,this.currentPos,true);
+      }else{
+        this.currentGraph.graphBoard.paint(false);
+      };
+    
+    
+  },
+  
   
   //----------------------------------
   // incXScale
@@ -288,12 +302,7 @@ var TRun = Class.create({
       
       this.currentGraph.graphBoard.centerGraphsAt(cpos,cpos,1,false,false);
       
-      if (this.currentFrom>=0) {
-        this.showPosition(this.currentFrom,this.currentTo,this.currentRegion,this.currentPos,true);
-      }else{
-        this.currentGraph.graphBoard.paint(false);
-      };
-      
+      self.redrawPositions();
       
       // this.currentGraph.graphBoard.paint(false);
       
@@ -301,6 +310,45 @@ var TRun = Class.create({
       
     };
   },
+  
+  
+  incThresholdRight: function(inc){
+
+    if (this.alignment != null) {
+          this.alignment.thresholdRight=run.alignment.thresholdRight+inc;
+          if (this.alignment.thresholdRight<0){
+            this.alignment.thresholdRight=0;
+          }
+          
+    };
+    
+    this.redrawPositions();
+    
+  },
+  
+  incThresholdLeft: function(inc){
+    
+    if (this.alignment != null) {
+          this.alignment.thresholdLeft=run.alignment.thresholdLeft+inc;
+          if (this.alignment.thresholdLeft<0){
+            this.alignment.thresholdLeft=0;
+          }
+          
+    };
+    
+    this.redrawPositions();
+    
+  },
+  
+  getOligos: function(){
+    res = '';
+    
+    if (this.alignment != null) {
+      this.alignment.getOligoSequence(this.currentFrom,this.currentTo,this.currentRegion);
+      
+    };
+    
+  },  
   
   
 });

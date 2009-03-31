@@ -36,6 +36,8 @@ var TAMGraphPng = Class.create({
     $('graphDIV').hide();
     $('regionsTable').hide();
 		$('alignmentDIV').hide();
+		$('alignmentResultDIV').hide();
+		
 		
     var div = new Element('div',{'style':"width: 50px"});
     
@@ -58,6 +60,8 @@ var TAMGraphPng = Class.create({
     $('regionsTable').show();
 		
 		$('alignmentDIV').show();
+		$('alignmentResultDIV').show();
+		
 		
   }
   

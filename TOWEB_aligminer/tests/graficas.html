@@ -42,6 +42,8 @@
 
 			window.onload = function () {
 				
+							cgiPath = '/cgi-bin/alignminer/';
+				
 				// var can = new TScaleXYCanvas('idCanvas');
 				// can.beginPath();
 				// can.moveTo(100,100);
@@ -72,9 +74,9 @@
 
 				gb = new TGraphBoard('idCanvas');
 				
-				var xg = new TXGrid(gb,'#C8CACA',50);
+				var xg = new TXGrid(gb,'#C8CACA',50,"xsss");
 				
-				var yg = new TYGrid(gb,'#C8CACA',0.2);
+				var yg = new TYGrid(gb,'#C8CACA',0.2,"ysss");
 				
 				var g1 = new TGraph(gb,'#FF0E06',data1,regionsCONSERVATION,regionsSNP,regionsDIVERGENCE);
 

@@ -1,5 +1,0 @@
-2008/05/13 18:56:54 Starting execution 1210697813344
-2008/05/13 18:56:54 Loading:/srv/www/htdocs/alignminer/tmpdata/1210697813344/alignment.file
-2008/05/13 18:56:54 Detected file type: msf
-2008/05/13 18:56:54 Extracting quick alignment info
-2008/05/13 18:56:54 The END.

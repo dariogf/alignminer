@@ -210,6 +210,8 @@ var TAMGraph = Class.create({
     $('graphCanvas').hide();
     $('regionsTable').show();
 		$('alignmentDIV').show();
+		$('alignmentResultDIV').show();
+		
 		
 		this.graphBoard.removeEvents();
 		this.graphBoard.addEvents();
@@ -246,6 +248,7 @@ var TAMGraph = Class.create({
     $('regionsTable').show();
 		
 		$('alignmentDIV').show();
+		$('alignmentResultDIV').show();
 		
 		this.graphBoard.centerGraphsAt(0,0,-1,false,false);
 		

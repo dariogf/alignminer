@@ -112,6 +112,7 @@ var TGraphBoard = Class.create({
     // establece escalas:
     //alert(this.getMax());
     //incr=this.getMax()-this.getMin();
+    incr = 0;
     // TODO: CHECK MARGENES CON PORCENTAJE ALTURA
 
     this.maxValue = this.getMax()+incr;

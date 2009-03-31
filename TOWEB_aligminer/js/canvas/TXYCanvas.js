@@ -164,7 +164,9 @@ var TXYCanvas = Class.create({
   //----------------------------------
   fillRect: function(x,y,w,h){
     var a = this.FixNegativeParams(this.lx(x),this.ly(y),this.lw(w),this.lh(h));
-
+    /*
+      TODO - AQUI FALLA EN FF Y SAF
+    */
     this.canvas.fillRect(a[0], a[1], a[2], a[3]);
   },
   

@@ -12,6 +12,8 @@
 		<script src="js/scriptaculous/scriptaculous.js?load=effects" language="JavaScript" type="text/javascript"></script>
 		
 		<script src="js/other/rounded.js"></script>
+		<script src="js/json2.js"></script>
+		
 		
 		<script language="JavaScript" type="text/javascript">
 			// cgiPath = '/cgi-bin/alignminer/ambeta/';
@@ -68,7 +70,7 @@
 		
 		
 		<script language="JavaScript" type="text/javascript">
-		var amVersion = '1.0b2';
+		var amVersion = '1.0b3';
 			// var run;
 			// var jobList;
 			
@@ -854,16 +856,73 @@
 														<td id="snpTD" width="20%"></td>
 
 														<td id="belowTD" width="20%"></td>
-
+														
 														<!-- aqui el alineamiento -->
 														<td rowspan="3" width="40%">
 															<div id="alignmentDIV" style="overflow: scroll; display:none;"></div>
+															<div id="alignmentResultDIV" style="display:none;">
+																<table width="100%" class="AlignmentResultTable" border="0" cellspacing="0" cellpadding="0"> 
+																	<tr align="center">
+																		<td>
+																			<a href="javascript:run.incThresholdLeft(1);">&nbsp;&larr;&nbsp;</a>
+																		</td>
+																		
+																		<td>
+																			<a href="javascript:run.incThresholdLeft(-1);">&rarr;&nbsp;</a>
+																		</td>
+																		
+																		<td>
+																			<a href="javascript:run.getOligos();">&nbsp;OLIGO&nbsp;</a>
+																		</td>
+																		
+																		<td>
+																			<a href="javascript:run.incThresholdRight(-1);">&nbsp;&larr;&nbsp;</a>
+																		</td>
+																		
+																		<td>
+																			<a href="javascript:run.incThresholdRight(1);">&rarr;&nbsp;</a>
+																		</td>
+																																				
+																	</tr>																	
+																	
+																</table>
+																
+																<div id="oligoDIV">
+																	
+																</div>
+															</div>
 														</td>
 														
 														<td width="40%">
 															<div id="evtInfo"></div>
 														</td>
 												</tr>
+												
+												<!-- '<table border="0" cellspacing="0" cellpadding="0">
+																									<tr>
+																										<td>
+																											<a href="javascript:run.alignment.thresholdLeft=run.alignment.thresholdLeft-1;">&nbsp;&larr;&nbsp;</a>
+																										</td>
+																										
+																									  <td>
+																											<a href="javascript:run.alignment.thresholdLeft=run.alignment.thresholdLeft+1;">&rarr;&nbsp;</a>
+																										</td>
+																										
+																										<td>
+												       														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																										</td>
+																										
+																										<td>
+																											<a href="javascript:run.alignment.thresholdLeft=run.alignment.thresholdRight+1;">&nbsp;&larr;&nbsp;</a>
+																										</td>
+																										
+																										<td>
+																											<a href="javascript:run.alignment.thresholdLeft=run.alignment.thresholdRight-1;">&rarr;&nbsp;</a>
+																										</td>
+																										
+																										
+																									</tr>
+																								</table>' -->
 												
 												<tr>
 														<td id="aboveTDPages" width="20%"  style="align:center; vertical-align:middle; background:#BDC4CB; border:2px solid #D3DCE6;"></td>

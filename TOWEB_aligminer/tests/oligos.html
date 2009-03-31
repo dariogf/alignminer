@@ -1,0 +1,110 @@
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<title>oligos</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+		<link rel="stylesheet" href="../css/alignminer.css" type="text/css" />
+
+		<!-- framework ajax -->
+		<script src="../js/prototype/prototype.js" language="JavaScript" type="text/javascript"></script>
+		
+		<!-- Para dibujar los alineamientos -->
+		<script src="../js/am/TAlignment.js" language="JavaScript" type="text/javascript"></script>
+
+		<script src="../js/json2.js" language="JavaScript" type="text/javascript"></script>
+		
+		
+		
+		<script language="JavaScript" type="text/javascript">
+
+			window.onload = function () {
+				
+				cgiPath = '/cgi-bin/alignminer/';
+			  
+				url= 'http://localhost/cgi-bin/alignminer/download.cgi?F=dariogf_gmail_com/12137223753833/json/alignment.json';
+				
+				// http://localhost/cgi-bin/alignminer/download.cgi?F=dariogf_gmail_com/12145920592581/json/variability_belowFFT.json
+				
+			  // align = new TAlignment('dariogf_gmail_com/12145920592581',null,null);
+			  align = new TAlignment('dariogf_gmail_com/12137223753833',null,null);
+				
+				elem = {};
+				
+				elem['pepe']='miguel';
+				elem['pepe2']='miguel2';
+				
+								
+        if (elem.length>0){
+					$('oligoDIV').update(JSON.stringify(elem));
+				};
+				
+				
+				
+								
+			};
+			
+			getOlg = function(){
+				
+
+				// elem['pepe']='miguel';
+				// elem['pepe2']='miguel2';
+				
+
+						// $('oligoDIV').update(JSON.stringify(align.sequences));
+				
+				res = align.getOligoSequence(10,30,2);
+				                                 
+       
+				$('oligoDIV').update('RES:'+res);
+				
+			}
+			
+			
+			
+			// alignmentDownloaded: function (obj){
+			// 		      sequences = obj.responseText.evalJSON(true);
+			// 		      div = $('oligoDIV');
+			// 		if (sequences != null) {
+			// 			res += sequences;
+			// 			
+			// 			
+			// 		};
+			// 		div.update('res');
+			// 		  };
+		  
+		</script>
+		
+		
+		<!-- <script>
+			
+		
+		</script> -->
+		
+	</head>
+
+	<body>
+		
+			<a href="javascript:getOlg();">oligos</a>
+			
+			<div id="oligoDIV">
+				
+			</div>
+					
+			<div id="wellcome">
+				
+			</div>
+			
+			<div id="evtInfo">
+				
+			</div>
+			
+			<table border="0" cellspacing="5" cellpadding="5">
+				<tr><th>Header</th></tr>
+				<tr><td>Data</td></tr>
+			</table>
+
+	</body>
+
+</html>

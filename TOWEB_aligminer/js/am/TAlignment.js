@@ -74,7 +74,8 @@ var TAlignment = Class.create({
     
     this.loadDone = loadDone;
     
-    this.threshold = 5;
+    this.thresholdLeft = 5;
+    this.thresholdRight = 5;
     
     this.sequences = null;
     
@@ -99,6 +100,7 @@ var TAlignment = Class.create({
   // Callback llamado cuando se baja el fichero de alineamiento
   alignmentDownloaded: function (obj){
       this.sequences = obj.responseText.evalJSON(true);
+
       if (this.loadDone!=null) {
         this.loadDone('alignment');
       };
@@ -129,25 +131,28 @@ var TAlignment = Class.create({
   			tr.appendChild(td);
 			
         // añade las bases de la secuencia, con un margen
-  			for (var i=start-this.threshold; i <= end+this.threshold; i++) {
-  			  c=this.sequences[s+1].charAt(i);
+  			for (var i=start-this.thresholdLeft; i <= end+this.thresholdRight; i++) {
+          // only show valid positions
+  			  if ((i>=0) & (i<this.sequences[s+1].length)) {
+  			    
+    			  c=this.sequences[s+1].charAt(i);
 
-  				td = new Element('td',{'class':this.colors.colorOf(c)});
-          // añade una celda con la base
-          if ((i<start) | (i>end)) {
+    				td = new Element('td',{'class':this.colors.colorOf(c)});
+            // añade una celda con la base
+            if ((i<start) | (i>end)) {
             
-            // td.className='clNone';
+              // td.className='clNone';
             
-            // td = new Element('td',{'class':'clNone'});
+              // td = new Element('td',{'class':'clNone'});
             
-            td.addClassName('clTransparent');
-          };
+              td.addClassName('clTransparent');
+            };
           
           
 
-    			td.update(c);
-    			tr.appendChild(td);
-    			
+      			td.update(c);
+      			tr.appendChild(td);
+  			  };
   			};
 			
         // añade el row a la tabla
@@ -169,34 +174,162 @@ var TAlignment = Class.create({
       var posClass;
       
       // para cada posición
-  		for (var i=start-this.threshold; i <= end+this.threshold; i++) {
-  		  
-  		  posClass='clNoPosition';
+  		for (var i=start-this.thresholdLeft; i <= end+this.thresholdRight; i++) {
+  		  // only show valid positions
+			  if ((i>=0) & (i<this.sequences[1].length)) {
+        
+  		    posClass='clNoPosition';
   		
-        // cuando es bases de la posición se pintan distinto
-  		  if ((i>=start) & (i<=end)){
-  				posClass='clPosition';
+          // cuando es bases de la posición se pintan distinto
+    		  if ((i>=start) & (i<=end)){
+    				posClass='clPosition';
+    			};
+  			  
+          // añade la celda con la posición
+      		td = new Element('td',{'class':posClass});
+    			td.update("&nbsp;");
+    			tr.appendChild(td);
   			};
-  			
-        // añade la celda con la posición
-    		td = new Element('td',{'class':posClass});
-  			td.update("&nbsp;");
-  			tr.appendChild(td);
-  			
 			};
   		
 			table.appendChild(tr);
+			
+      // // crea una tabla nueva para los resultados
+      //       var result_table = new Element('table',{'width':'100%','class':'AlignmentResultTable','border':"0", 'cellspacing':"0",'cellpadding':"3"});
+      //       
+      //       
+      //       tr=new Element('tr',{'align':"center"});
+      //       
+      //       td = new Element('td');
+      //       td.update('<a href="javascript:run.incThresholdLeft(1);">&nbsp;&larr;&nbsp;</a>');
+      //       tr.appendChild(td);
+      //       
+      //       td = new Element('td');
+      //       td.update('<a href="javascript:run.incThresholdLeft(-1);">&rarr;&nbsp;</a>');
+      //       tr.appendChild(td);
+      //       
+      //       td = new Element('td');
+      //       td.update('<a href="javascript:run.getOligos();">&nbsp;OLIGO&nbsp;</a>');
+      //       tr.appendChild(td);
+      //       
+      //       td = new Element('td');
+      //       td.update('<a href="javascript:run.incThresholdRight(-1);">&nbsp;&larr;&nbsp;</a>');
+      //       tr.appendChild(td);
+      //       
+      //       td = new Element('td');
+      //       td.update('<a href="javascript:run.incThresholdRight(1);">&rarr;&nbsp;</a>');
+      //       tr.appendChild(td);
+      //            
+      //      result_table.appendChild(tr);
+  		
+      // tr=new Element('tr',{'align':"center"});
+      //       td = new Element('td',{'colspan':'"5"'});
+      //       td.update('<div id="oligoDIV"></div>');
+      //       tr.appendChild(td);
+      //       
+      // result_table.appendChild(tr);
       
+  		
 		  var div = new Element('div',{'style':"width: 50px"});
-  	
+  	  
   		div.appendChild(table);
+      // div.appendChild(result_table);
     
   		// poner resultados en el div
   		$('alignmentDIV').update(div);
   		
+      // $('alignmentResultDIV').appendChild(result_table);
+  		  		
+      // var oligodiv = new Element('div',{'id':'oligoDIV'});
+      //       
+      // $('alignmentResultDIV').appendChild(oligodiv);
+  		
   	};
 		
-  }
+  },
+  
+  // Muestra el trozo de alineamiento indicado
+  getOligoSequence: function(start,end,pos){
+    
+     // alert(this.sequences);
+     
+    res = {};
+    j= ' ';
+    
+    seqs = '';
+    
+    // si existen las secuencias
+    if (this.sequences != null) {
+           
+     // recorre el array de secuencias
+     for ( var s=0, len=this.sequences.length; s<len; s=s+2 ){
+       seq_name = this.sequences[s];
+
+       seq='';
+       
+
+        // añade las bases de la secuencia, con un margen
+       for (var i=start-this.thresholdLeft; i <= end+this.thresholdRight; i++) {
+          // only show valid positions
+         if ((i>=0) & (i<this.sequences[s+1].length)) {
+           
+           seq+=this.sequences[s+1].charAt(i);
+          
+         };
+       };
+       
+       res[seq_name] = seq;
+       // seqs += ' '+seq;
+      
+      };
+    };
+    
+    
+    // if seqs !=''
+    
+    seqs= JSON.stringify(res);
+    
+    if (seqs!='') {
+      
+      new Ajax.Request(cgiPath+'runCmdGetJSON.cgi?SEQ=\''+seqs+'\'', {
+        method:'get',
+        requestHeaders: {Accept: 'application/json'},
+        onSuccess: this.showOligoSequence.bind(this) 
+      });
+      
+      
+    };
+    
+    // return seqs;
+		
+  },
+    
+  // Muestra el trozo de alineamiento indicado
+  showOligoSequence: function(obj){
+    oligos = obj.responseText.evalJSON(true);
+    
+    
+    res = 'seq&nbsp;&nbsp;gc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hairpin&nbsp;&nbsp;&nbsp;dimer<br>';
+    
+    if ((oligos != null)) {
+      
+    for (var i in oligos) {
+      if (oligos[i]!=null){
+        if ((oligos[i]['error']==null)) {
+          if (oligos[i]['hairpintext']!=null) {
+          res +=i+': '+ oligos[i]['gc']+'&nbsp;&nbsp;&nbsp;'+oligos[i]['hairpintext']+'&nbsp;&nbsp;&nbsp;'+oligos[i]['dimertext']+'<br>';         
+          };
+        }else{
+          res += 'ERROR:'+oligos[i]['error']+'<br>';
+        };
+      };
+    };
+    
+    };
+    
+    $('oligoDIV').update(res);
+    
+  },
   
 });
 

@@ -73,6 +73,7 @@
 				$('regionsTable').hide();
 				
 				$('alignmentDIV').hide();
+				$('alignmentResultDIV').hide();
 				
 				$('graphCanvas').show();
 			
