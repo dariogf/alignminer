@@ -324,6 +324,7 @@ var TRun = Class.create({
     
     this.redrawPositions();
     
+    this.getOligos();
   },
   
   incThresholdLeft: function(inc){
@@ -337,16 +338,40 @@ var TRun = Class.create({
     };
     
     this.redrawPositions();
+    this.getOligos();
     
   },
   
+  // getOligos: function(){
+  //   var res = '';
+  //   
+  //   if (this.alignment != null) {
+  //     this.alignment.getOligoSequence(this.currentFrom,this.currentTo,this.currentRegion);
+  //     
+  //   };
+  //   
+  // },  
+  
   getOligos: function(){
-    res = '';
-    
-    if (this.alignment != null) {
-      this.alignment.getOligoSequence(this.currentFrom,this.currentTo,this.currentRegion);
+    var res = '';
+    if (this.oligoPeriodicalExecuter == null) {
+      this.oligoPeriodicalExecuter = new PeriodicalExecuter((function(pe){
+        // pide el archivo al servidor
+        if (this.alignment != null) {
+          this.alignment.getOligoSequence(this.currentFrom,this.currentTo,this.currentRegion);
+          this.oligoPeriodicalExecuter.stop();
+        };
+      }).bind(this), 2);
+    }else{
+      $('oligoDIV').style.opacity = 0.5;
+      this.oligoPeriodicalExecuter.stop();
+      this.oligoPeriodicalExecuter.timer = 1500;
+			this.oligoPeriodicalExecuter.registerCallback();
+      // this.oligoPeriodicalExecuter.execute();
       
     };
+    
+    
     
   },  
   

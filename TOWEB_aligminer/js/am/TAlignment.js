@@ -306,28 +306,144 @@ var TAlignment = Class.create({
     
   // Muestra el trozo de alineamiento indicado
   showOligoSequence: function(obj){
-    oligos = obj.responseText.evalJSON(true);
+    var oligos = obj.responseText.evalJSON(true);
     
     
-    res = 'seq&nbsp;&nbsp;gc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hairpin&nbsp;&nbsp;&nbsp;dimer<br>';
+    // var res = 'seq&nbsp;&nbsp;gc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hairpin&nbsp;&nbsp;&nbsp;dimer<br>';
+    var res = $('oligoDIV');
     
-    if ((oligos != null)) {
+    res.update('');
+        
+    if ((res!= null) & (oligos != null)) {
+
+      var oligo_table = new Element('table',{'width':'90%','class':'oligoTable','border':"0", 'cellspacing':"0",'cellpadding':"3"});
+
+      // add table headers
+      var tr = new Element('tr');
+    
+      // seq name
+      var td = new Element('th');
+      td.update('Name');
+      tr.appendChild(td);
+    
+      // seq bases
+      var td = new Element('th');
+      td.update('Oligo sequence');
+      tr.appendChild(td);
       
-    for (var i in oligos) {
-      if (oligos[i]!=null){
-        if ((oligos[i]['error']==null)) {
-          if (oligos[i]['hairpintext']!=null) {
-          res +=i+': '+ oligos[i]['gc']+'&nbsp;&nbsp;&nbsp;'+oligos[i]['hairpintext']+'&nbsp;&nbsp;&nbsp;'+oligos[i]['dimertext']+'<br>';         
+      var td = new Element('th');
+      td.update('Size');
+      tr.appendChild(td);
+    
+      // gc
+      var td = new Element('th');
+      td.update('%GC');
+      tr.appendChild(td);
+    
+      // melting temp
+      var td = new Element('th');
+      td.update('Tm');
+      tr.appendChild(td);
+    
+      // hairpins
+      var td = new Element('th');
+      td.update('Hairpins');
+      tr.appendChild(td);
+    
+      // dimmers
+      var td = new Element('th');
+      td.update('Dimers');
+      tr.appendChild(td);
+    
+      // add row
+      oligo_table.appendChild(tr);
+      
+      for (var i in oligos) {
+        if (oligos[i]!=null){
+          if ((oligos[i]['error']==null)) {
+            if (oligos[i]['hairpintext']!=null) {
+            
+              // var oligo_table = new Element('table',{'width':'90%','class':'oligoTable','border':"0", 'cellspacing':"0",'cellpadding':"3"});
+                                         
+              var tr = new Element('tr');
+            
+              // seq name
+              var td = new Element('td');
+              td.update(i);
+              tr.appendChild(td);
+            
+            
+              var seq = oligos[i]['seq'];
+              
+              seq = seq.split('').join('<wbr>');
+              
+              // seq = seq.split('').join('&shy;')
+              // seq = seq.split('').join('</span><span>');
+              //               seq ='<span>'+seq+'</span>';
+              
+              
+              // seq bases
+              // var td = new Element('td',{'width':'100px'});
+              var td = new Element('td');
+              // td.update('<pre>'+seq+'</pre>');
+              td.update(seq);
+              tr.appendChild(td);
+            
+              // seq size
+              var td = new Element('td',{'width':'30px'});
+              td.update(oligos[i]['length']);
+              tr.appendChild(td);
+            
+              // gc
+              var td = new Element('td',{'width':'30px','class':'oligoColor'+oligos[i]['gccolor']});
+              td.update(oligos[i]['gc']);
+              tr.appendChild(td);
+            
+              // melting temp
+              var td = new Element('td',{'width':'30px','class':'oligoColor'+oligos[i]['tmcolor']});
+              td.update(oligos[i]['tm']);
+              tr.appendChild(td);
+            
+              // hairpins
+              var td = new Element('td',{'class':'oligoColor'+oligos[i]['hairpincolor']});
+              td.update(oligos[i]['hairpintext']);
+              tr.appendChild(td);
+            
+              // dimmers
+              var td = new Element('td',{'class':'oligoColor'+oligos[i]['dimercolor']});
+              td.update(oligos[i]['dimertext']);
+              tr.appendChild(td);
+            
+              // add row
+              oligo_table.appendChild(tr);
+            
+              // // add table
+              //             res.appendChild(oligo_table);
+              //             
+              //             // separator
+              //             res.appendChild(new Element('br'));
+              //             
+    
+            // res +=i+': '+ oligos[i]['gc']+'&nbsp;&nbsp;&nbsp;'+oligos[i]['hairpintext']+'&nbsp;&nbsp;&nbsp;'+oligos[i]['dimertext']+'<br>';         
+            };
+          }else{
+            // res += 'ERROR:'+oligos[i]['error']+'<br>';
           };
-        }else{
-          res += 'ERROR:'+oligos[i]['error']+'<br>';
         };
       };
-    };
+    
+      // add table
+      res.appendChild(oligo_table);
+    
+      // separator
+      res.appendChild(new Element('br'));
+      
+      res.style.opacity = 1;
+    
     
     };
     
-    $('oligoDIV').update(res);
+    // $('oligoDIV').update(res);
     
   },
   

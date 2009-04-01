@@ -13,6 +13,7 @@
 		
 		// bases must be in uppercases
 		$oligo = strtoupper($olg);
+		$oligo = ereg_replace("[-]", "", $oligo);
 		
 		// oligos only have actg
 		if (!ereg("^[ATGC]+$",$oligo)) {
@@ -45,11 +46,13 @@
 		$elem = array();
 		 
 		 
-		$elem['seq'] = $oligo; 
+		$elem['orig_seq'] = $oligo; 
 		
 		// get oligo
 		$oligo=check_oligo($oligo);
 		
+		$elem['seq'] = $oligo; 
+		$elem['length'] = strlen($oligo);
 		
 		 
 		// if oligo is empty
@@ -77,41 +80,60 @@
 			// check harpins
       if ($hairpin>-3) {
 				$hairpintext = "Not likely"; // green
+				$hairpincolor = "green";
       } else if ($hairpin>-5) {
 				$hairpintext = "Somewhat likely"; // orange
+				$hairpincolor = "orange";
       } else {
 				$hairpintext = "Likely"; // red
+				$hairpincolor = "red";
       }
 
 			// check dimmers
       if ($dimer>-6) {
 				$dimertext = "Not likely"; // green
+				$dimercolor = "green";
       } else if ($dimer>-8) {
 				$dimertext = "Somewhat likely"; // orange
+        $dimercolor = "orange";
       } else {
 				$dimertext = "Likely"; // red
+				$dimercolor = "red";
       }
 
 			// check temp
       if ($tm<52) {
-				$tmcolour = "blue";
+				$tmcolor = "blue";
       } else if ($tm>62) {
-				$tmcolour = "red";
+				$tmcolor = "red";
       } else {
-				$tmcolour = "green";
+				$tmcolor = "green";
       }
 	  
+	  	// check gc
+      if ($gc<0.33) {
+				$gccolor = "blue";
+      } else if ($gc>0.66) {
+				$gccolor = "red";
+      } else {
+				$gccolor = "green";
+      }
+		
 			// save values in hash 
-			$elem['gc'] = round($gc,4);
+			$elem['gc'] = round(100*$gc,0);
+			$elem['gccolor'] = $gccolor;
+      
 		
 		  $elem['hairpin'] = $hairpin;
 		  $elem['hairpintext'] = $hairpintext;
+		  $elem['hairpincolor'] = $hairpincolor;
 	
 		  $elem['dimer'] = $dimer;
 		  $elem['dimertext'] = $dimertext;
+		  $elem['dimercolor'] = $dimercolor;
 		
-		  $elem['tm'] = round($tm,4);
-		  $elem['tmcolour'] = $tmcolour;
+		  $elem['tm'] = round($tm,1);
+		  $elem['tmcolor'] = $tmcolor;
 	    
 			
 			// save element in hash
