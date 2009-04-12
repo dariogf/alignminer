@@ -79,6 +79,8 @@ var TAlignment = Class.create({
     
     this.sequences = null;
     
+    this.alphabet = alphabet;
+    
     this.colors = new TColors(alphabet);
     
     // pide el archivo json al servidor, ojo que hay que hacer un bind o  al llamarse al callback no sabe quien es this
@@ -253,59 +255,61 @@ var TAlignment = Class.create({
     
      // alert(this.sequences);
      
-    var res = {};
-    var j= ' ';
+    if (this.alphabet=='dna') {
+      
+      var res = {};
+      var j= ' ';
     
-    var seqs = '';
+      var seqs = '';
     
-    // si existen las secuencias
-    if (this.sequences != null) {
+      // si existen las secuencias
+      if (this.sequences != null) {
            
-     // recorre el array de secuencias
-     for ( var s=0, len=this.sequences.length; s<len; s=s+2 ){
-       var seq_name = this.sequences[s];
+       // recorre el array de secuencias
+       for ( var s=0, len=this.sequences.length; s<len; s=s+2 ){
+         var seq_name = this.sequences[s];
 
-       var seq = '';
+         var seq = '';
        
 
-        // añade las bases de la secuencia, con un margen
-       for (var i=start-this.thresholdLeft; i <= end+this.thresholdRight; i++) {
-          // only show valid positions
-         if ((i>=0) & (i<this.sequences[s+1].length)) {
+          // añade las bases de la secuencia, con un margen
+         for (var i=start-this.thresholdLeft; i <= end+this.thresholdRight; i++) {
+            // only show valid positions
+           if ((i>=0) & (i<this.sequences[s+1].length)) {
            
-           var base = this.sequences[s+1].charAt(i);
+             var base = this.sequences[s+1].charAt(i);
            
-           if (!base.match(/[\.-]/)) {
-              seq+=base;
-           };
+             if (!base.match(/[\.-]/)) {
+                seq+=base;
+             };
           
+           };
          };
-       };
        
-       if (seq!='') {
-         res[seq_name] = seq;
-       };
-       // seqs += ' '+seq;
+         if (seq!='') {
+           res[seq_name] = seq;
+         };
+         // seqs += ' '+seq;
+      
+        };
+      };
+    
+    
+      // if seqs !=''
+    
+      seqs= JSON.stringify(res);
+    
+      if (seqs!='') {
+      
+        new Ajax.Request(cgiPath+'runCmdGetJSON.cgi?SEQ=\''+seqs+'\'', {
+          method:'get',
+          requestHeaders: {Accept: 'application/json'},
+          onSuccess: this.showOligoSequence.bind(this) 
+        });
+      
       
       };
-    };
-    
-    
-    // if seqs !=''
-    
-    seqs= JSON.stringify(res);
-    
-    if (seqs!='') {
-      
-      new Ajax.Request(cgiPath+'runCmdGetJSON.cgi?SEQ=\''+seqs+'\'', {
-        method:'get',
-        requestHeaders: {Accept: 'application/json'},
-        onSuccess: this.showOligoSequence.bind(this) 
-      });
-      
-      
-    };
-    
+    };    
     // return seqs;
 		
   },

@@ -124,7 +124,7 @@ var TGraphBoard = Class.create({
     // this.yScale = Math.round((-this.bottomMargin+this.height())/((this.maxValue-this.minValue)));
     this.yScale = ((-this.bottomMargin+this.height())/((this.maxValue-this.minValue)));
     
-    $('evtInfo').insert('<br>min,max,ysca:'+this.bottomMargin+','+this.height()+','+this.yScale);
+    // $('evtInfo').insert('<br>min,max,ysca:'+this.bottomMargin+','+this.height()+','+this.yScale);
 
     this.xGridObject.separation = this.getXGridForScale(this.xScale);
     

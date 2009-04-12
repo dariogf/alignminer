@@ -244,7 +244,12 @@ var TRun = Class.create({
       $(this.currentRegion+this.currentPos).addClassName('regionTableTRResaltada');
       
       $('alignmentDIV').show();  
-      $('alignmentResultDIV').show();
+      
+      if (this.alignment.alphabet == 'dna') {
+        this.getOligos();
+        $('alignmentResultDIV').show();
+      }
+
     
   },
   
@@ -355,20 +360,25 @@ var TRun = Class.create({
   
   getOligos: function(){
     var res = '';
-    if (this.oligoPeriodicalExecuter == null) {
-      this.oligoPeriodicalExecuter = new PeriodicalExecuter((function(pe){
-        // pide el archivo al servidor
-        if (this.alignment != null) {
-          this.alignment.getOligoSequence(this.currentFrom,this.currentTo,this.currentRegion);
-          this.oligoPeriodicalExecuter.stop();
-        };
-      }).bind(this), 2);
-    }else{
-      $('oligoDIV').style.opacity = 0.5;
-      this.oligoPeriodicalExecuter.stop();
-      this.oligoPeriodicalExecuter.timer = 1500;
-			this.oligoPeriodicalExecuter.registerCallback();
-      // this.oligoPeriodicalExecuter.execute();
+    
+    if (this.alignment.alphabet == 'dna') {
+    
+      if (this.oligoPeriodicalExecuter == null) {
+        this.oligoPeriodicalExecuter = new PeriodicalExecuter((function(pe){
+          // pide el archivo al servidor
+          if (this.alignment != null) {
+            this.alignment.getOligoSequence(this.currentFrom,this.currentTo,this.currentRegion);
+            this.oligoPeriodicalExecuter.stop();
+          };
+        }).bind(this), 2);
+      }else{
+        $('oligoDIV').style.opacity = 0.5;
+        this.oligoPeriodicalExecuter.stop();
+        this.oligoPeriodicalExecuter.timer = 1500;
+  			this.oligoPeriodicalExecuter.registerCallback();
+        // this.oligoPeriodicalExecuter.execute();
+      
+      };
       
     };
     

@@ -60,7 +60,7 @@ var TAMGraphPng = Class.create({
     $('regionsTable').show();
 		
 		$('alignmentDIV').show();
-		$('alignmentResultDIV').show();
+    // $('alignmentResultDIV').show();
 		
 		
   }
