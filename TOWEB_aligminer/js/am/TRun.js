@@ -225,7 +225,8 @@ var TRun = Class.create({
       };
     };
     
-      this.alignment.show(from,to,regionName.substr(0,4)+'-'+pos);
+      // nombre posicion
+      this.alignment.show(from,to,regionName.substr(0,3)+'-'+pos);
     
       if (centering) {
             this.currentGraph.graphBoard.centerGraphsAt(from,to,0,true,true);

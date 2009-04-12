@@ -253,19 +253,19 @@ var TAlignment = Class.create({
     
      // alert(this.sequences);
      
-    res = {};
-    j= ' ';
+    var res = {};
+    var j= ' ';
     
-    seqs = '';
+    var seqs = '';
     
     // si existen las secuencias
     if (this.sequences != null) {
            
      // recorre el array de secuencias
      for ( var s=0, len=this.sequences.length; s<len; s=s+2 ){
-       seq_name = this.sequences[s];
+       var seq_name = this.sequences[s];
 
-       seq='';
+       var seq = '';
        
 
         // añade las bases de la secuencia, con un margen
@@ -273,12 +273,18 @@ var TAlignment = Class.create({
           // only show valid positions
          if ((i>=0) & (i<this.sequences[s+1].length)) {
            
-           seq+=this.sequences[s+1].charAt(i);
+           var base = this.sequences[s+1].charAt(i);
+           
+           if (!base.match(/[\.-]/)) {
+              seq+=base;
+           };
           
          };
        };
        
-       res[seq_name] = seq;
+       if (seq!='') {
+         res[seq_name] = seq;
+       };
        // seqs += ' '+seq;
       
       };

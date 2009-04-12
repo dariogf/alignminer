@@ -113,15 +113,18 @@ var TGraphBoard = Class.create({
     //alert(this.getMax());
     //incr=this.getMax()-this.getMin();
     incr = 0;
+    
     // TODO: CHECK MARGENES CON PORCENTAJE ALTURA
 
     this.maxValue = this.getMax()+incr;
     this.minValue = this.getMin()+incr;
     this.dataLength = this.getDataLength();
     
-    // $('evtInfo').insert('<br>min,max:'+this.minValue+','+this.maxValue);
     
-    this.yScale = Math.round((-this.bottomMargin+this.height())/((this.maxValue-this.minValue)));
+    // this.yScale = Math.round((-this.bottomMargin+this.height())/((this.maxValue-this.minValue)));
+    this.yScale = ((-this.bottomMargin+this.height())/((this.maxValue-this.minValue)));
+    
+    $('evtInfo').insert('<br>min,max,ysca:'+this.bottomMargin+','+this.height()+','+this.yScale);
 
     this.xGridObject.separation = this.getXGridForScale(this.xScale);
     
