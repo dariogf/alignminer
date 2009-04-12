@@ -85,7 +85,12 @@ sub new {
         # # hash vacio para alojar el objeto
         # my $self  = {};
         
+
+        
         $self->{_alignment} = $alignment;
+        
+        # get alphabet
+        $self->{_alphabet} = $self->extractAlphabet();
         
         $self->{_qInfo} = undef;
         
@@ -253,15 +258,17 @@ sub alphabet {
    my $self = shift;
    
    # my ( $param ) = @_;
-   #    
+   #       
    #    $self->{_alphabet} = $param if defined($param);
    
-   if ($self->alignment->no_sequences>0) {
-        return $self->alignment->get_seq_by_pos(1)->alphabet;
-   }else
-   {
-        return "none";
-   }
+   return $self->{_alphabet};
+   
+   # if ($self->alignment->no_sequences>0) {
+   #      return $self->alignment->get_seq_by_pos(1)->alphabet;
+   # }else
+   # {
+   #      return "none";
+   # }
    
 }
 
@@ -430,7 +437,7 @@ sub getQuickInfo {
   
       # determinar el alfabeto de la primera secuencia
       $qinfo{alphabet}=$self->alphabet;
-  
+    
   
       my @seqs=$self->getSequenceNames();
 
@@ -634,8 +641,6 @@ sub process {
       return;
     }
     
-    # determinar el alfabeto de la primera secuencia
-    $logger->info("Detected alphabet: " . $self->alphabet);
     
     
     
@@ -646,6 +651,10 @@ sub process {
 
     # establecer elemento en la clase
     $self->countAM($countAM);
+    
+    # imprime el alfabeto 
+    $logger->info("Detected alphabet: " . $self->alphabet);
+    
     
     $logger->info("Frequency processing finalized");
     $self->setT2('tPARSING');
@@ -742,6 +751,52 @@ sub process {
     $self->setT2('tFINISH');
     
 }#process
+
+#-----------------------------------------------------------------------------#
+
+=head2 extractAlphabet
+
+ Title   : extractAlphabet
+ Usage   : my $variable = extractAlphabet();
+ 
+ Function: extract de alignment alphabet
+
+ Returns : alphabet
+ Args    : none
+
+=cut
+
+#-----------------------------------------------------------------------------#
+sub extractAlphabet {
+  my $self = shift;
+  # (my $) = @_;
+  # body...
+  
+  $self->{_alphabet} = 'none';
+  
+  # for each sequence
+  for (my $seqindex = 1; $seqindex <= $self->alignment->no_sequences(); $seqindex++) {
+
+    my $seq = $self->alignment->get_seq_by_pos($seqindex);
+    
+    my $seqStr = $seq->seq();
+    
+    # convierte a mayusculas
+    $seqStr =~ tr/a-z/A-Z/;
+    
+    $self->{_alphabet} = 'dna';
+    
+    # Si contiene algo distinto de esto, es proteina
+    if ($seqStr =~ m/[^ARGCYTMNSKNX\.\*-]/) {
+      $self->{_alphabet} = 'protein';
+    }
+    
+  }
+  
+  $self->{_alphabet} = 'protein';
+  
+}#extractAlphabet
+
 
 
 
