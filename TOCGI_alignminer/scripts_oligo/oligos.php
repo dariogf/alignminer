@@ -1,4 +1,4 @@
-#!/usr/bin/php
+#!/usr/bin/php5
 
 <?php
 	// uses external commands

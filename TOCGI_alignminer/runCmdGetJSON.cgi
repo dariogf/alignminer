@@ -37,7 +37,18 @@ print $cgi->header(-type => 'text/html', -charset => 'utf-8');
            
 # my $res = system('/srv/www/cgi-bin/alignminer/scripts_oligo/oligos.php cagacgtacgtactactactgt cagtcatacactac');
 
-my $cmd = "/usr/bin/php /srv/www/cgi-bin/alignminer/scripts_oligo/oligos.php $params";
+#my $cmd = "/usr/bin/php /srv/www/cgi-bin/alignminer/scripts_oligo/oligos.php $params";
+my $plat = `uname`;
+
+chomp($plat);
+
+my $php_path='/usr/bin/php';
+
+if ($plat eq "Linux"){
+   $php_path='/usr/bin/php5';
+}
+ 
+my $cmd = "$php_path /srv/www/cgi-bin/alignminer/scripts_oligo/oligos.php $params";
 
 # my $res = `/Valignminer/scripts_oligo/oligos.php cagacgtacgtactactactgt cagtcatacactaccacacca`;
 my $res = `$cmd`;
