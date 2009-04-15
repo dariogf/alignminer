@@ -793,8 +793,6 @@ sub extractAlphabet {
     
   }
   
-  $self->{_alphabet} = 'protein';
-  
 }#extractAlphabet
 
 

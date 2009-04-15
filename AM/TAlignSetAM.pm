@@ -203,7 +203,7 @@ sub _load {
 
     # Si es un tipo conocido
     if ($format) {
-        $logger->info ("Detected file type: $format");
+        $logger->info("Detected file type: $format");
         # si no se pasa el parametro format, el lo busca, pero no tenemos el control
         $alns  = Bio::AlignIO->new(-file   => $self->fileName, 
                                 -format => $format);
