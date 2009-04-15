@@ -49,7 +49,7 @@ use File::Basename;
 # cambiar esto para despliegue
 # use lib '/Volumes/Documentos/Progs/bio/AlignMiner';
 # use lib '/usr/local/alignminer';
-use lib '/export/home2/home/soft/bioperl/alignminer/';
+use lib '/export/home_users/home/soft/bioperl/alignminer/';
 
 
 # librerias bio

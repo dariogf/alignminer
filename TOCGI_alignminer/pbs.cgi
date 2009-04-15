@@ -26,7 +26,7 @@ BEGIN {
 
 #-----------------------------------------------------------------------------#
 
-my $TMPDATA_DIR='/export/home2/home/soft/bioperl/tmpdata/';
+my $TMPDATA_DIR='/export/home_users/home/soft/bioperl/tmpdata/';
 
 # main
 my $cgi = CGI->new();
@@ -104,7 +104,7 @@ sub saveToEnviaSH {
 		print FILE 'umask 0003',"\n";
 
 		# programa a ejecutar, con sus argumentos:
-		print FILE "/export/home2/home/soft/bioperl/alignminer/alignMiner.pl $alignment $id COMPLETE\n";
+		print FILE "/export/home_users/home/soft/bioperl/alignminer/alignMiner.pl $alignment $id COMPLETE\n";
 		
     close(FILE);
     

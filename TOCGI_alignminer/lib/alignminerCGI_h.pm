@@ -67,7 +67,7 @@ $VERSION     = "v 0.01";
                         )]);
 
 # our $UPLOAD_BASE_DIR= '/srv/www/htdocs/alignminer/tmpdata/';
-our $UPLOAD_BASE_DIR= '/export/home2/home/soft/bioperl/tmpdata/';
+our $UPLOAD_BASE_DIR= '/export/home_users/home/soft/bioperl/tmpdata/';
 
 
 our $ALIGNMENT_FILENAME= 'alignment.file';
@@ -75,8 +75,8 @@ our $ALIGNMENT_FILENAME= 'alignment.file';
 our $USING_BATCH = 1;
 # our $USING_BATCH = 0;
 
-# our $ALIGNMINER_EXE = '/export/home2/home/soft/bioperl/ambeta/alignMiner.pl';
-our $ALIGNMINER_EXE = '/export/home2/home/soft/bioperl/alignminer/alignMiner.pl';
+# our $ALIGNMINER_EXE = '/export/home_users/home/soft/bioperl/ambeta/alignMiner.pl';
+our $ALIGNMINER_EXE = '/export/home_users/home/soft/bioperl/alignminer/alignMiner.pl';
 
 our $QSUB_EXE = '/usr/bin/sudo -u bioperl /usr/pbs/bin/qsub';
 
@@ -146,7 +146,7 @@ sub saveToEnviaSH {
 		print FILE 'umask 0003',"\n";
 
 		# programa a ejecutar, con sus argumentos:
-		print FILE "/export/home2/home/soft/bioperl/alignminer/alignMiner.pl $alignment $userId $runId \"$master\" \"$jobName\" \"$real_filename\" COMPLETE\n";
+		print FILE "/export/home_users/home/soft/bioperl/alignminer/alignMiner.pl $alignment $userId $runId \"$master\" \"$jobName\" \"$real_filename\" COMPLETE\n";
 		
     close(FILE);
     
