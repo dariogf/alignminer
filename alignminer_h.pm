@@ -43,6 +43,7 @@ $VERSION     = "v 0.01";
 @ISA         = qw(Exporter);
 @EXPORT      = ();
 @EXPORT_OK   = qw(
+                $VERSION
                 $USERID
                 $RUNID
                 $BASE_OUTPUT_DIR
@@ -60,6 +61,7 @@ $VERSION     = "v 0.01";
                 );
 
 %EXPORT_TAGS = ( All => [qw(                
+                            $VERSION
                             $USERID
                             $RUNID
                             $BASE_OUTPUT_DIR

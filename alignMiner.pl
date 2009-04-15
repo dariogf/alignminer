@@ -49,7 +49,7 @@ use File::Basename;
 # cambiar esto para despliegue
 # use lib '/Volumes/Documentos/Progs/bio/AlignMiner';
 # use lib '/usr/local/alignminer';
-use lib '/export/home2/home/soft/bioperl/alignminer';
+use lib '/export/home2/home/soft/bioperl/alignminer/';
 
 
 # librerias bio
@@ -188,6 +188,7 @@ if ($mode eq "QUICKINFO") {
 $logger = setupLogging($OUTPUT_DIR.$logFileName);
 
 $logger->info("Starting execution: $USERID, $RUNID, $MASTER, $JOBNAME, $REAL_FILENAME, $mode");
+
 $logger->info("AlignMiner version: $VERSION");
 
 
