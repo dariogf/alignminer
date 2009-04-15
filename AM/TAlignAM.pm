@@ -772,7 +772,7 @@ sub extractAlphabet {
   # (my $) = @_;
   # body...
   
-  $self->{_alphabet} = 'none';
+  $self->{_alphabet} = 'dna';
   
   # for each sequence
   for (my $seqindex = 1; $seqindex <= $self->alignment->no_sequences(); $seqindex++) {
@@ -784,14 +784,14 @@ sub extractAlphabet {
     # convierte a mayusculas
     $seqStr =~ tr/a-z/A-Z/;
     
-    $self->{_alphabet} = 'dna';
-    
     # Si contiene algo distinto de esto, es proteina
     if ($seqStr =~ m/[^ARGCYTMNSKNX\.\*-]/) {
       $self->{_alphabet} = 'protein';
     }
     
   }
+  
+  return $self->{_alphabet};
   
 }#extractAlphabet
 
