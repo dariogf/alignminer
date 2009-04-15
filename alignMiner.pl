@@ -189,7 +189,7 @@ $logger = setupLogging($OUTPUT_DIR.$logFileName);
 
 $logger->info("Starting execution: $USERID, $RUNID, $MASTER, $JOBNAME, $REAL_FILENAME, $mode");
 
-$logger->info("AlignMiner version: $VERSION");
+$logger->info("AlignMiner version: $AMVERSION");
 
 
 # nuevo objeto de alineamientos

@@ -43,7 +43,7 @@ $VERSION     = "v 0.01";
 @ISA         = qw(Exporter);
 @EXPORT      = ();
 @EXPORT_OK   = qw(
-                $VERSION
+                $AMVERSION
                 $USERID
                 $RUNID
                 $BASE_OUTPUT_DIR
@@ -61,7 +61,7 @@ $VERSION     = "v 0.01";
                 );
 
 %EXPORT_TAGS = ( All => [qw(                
-                            $VERSION
+                            $AMVERSION
                             $USERID
                             $RUNID
                             $BASE_OUTPUT_DIR
@@ -78,7 +78,7 @@ $VERSION     = "v 0.01";
 			                      $SUBMITTED_FILE
                         )]);
 
-our $VERSION = '104';
+our $AMVERSION = '104';
 
 # our $BASE_OUTPUT_DIR = '/srv/www/htdocs/alignminer/tmpdata/';
 our $BASE_OUTPUT_DIR= '/export/home2/home/soft/bioperl/tmpdata/';
