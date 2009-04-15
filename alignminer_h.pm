@@ -76,6 +76,7 @@ $VERSION     = "v 0.01";
 			                      $SUBMITTED_FILE
                         )]);
 
+our $VERSION = '104';
 
 # our $BASE_OUTPUT_DIR = '/srv/www/htdocs/alignminer/tmpdata/';
 our $BASE_OUTPUT_DIR= '/export/home2/home/soft/bioperl/tmpdata/';

@@ -188,6 +188,8 @@ if ($mode eq "QUICKINFO") {
 $logger = setupLogging($OUTPUT_DIR.$logFileName);
 
 $logger->info("Starting execution: $USERID, $RUNID, $MASTER, $JOBNAME, $REAL_FILENAME, $mode");
+$logger->info("AlignMiner version: $VERSION");
+
 
 # nuevo objeto de alineamientos
 my $alignSetAM = AM::TAlignSetAM->new($inputfilename);
