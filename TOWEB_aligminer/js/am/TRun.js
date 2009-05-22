@@ -322,9 +322,11 @@ var TRun = Class.create({
 
     if (this.alignment != null) {
           this.alignment.thresholdRight=run.alignment.thresholdRight+inc;
-          if (this.alignment.thresholdRight<0){
-            this.alignment.thresholdRight=0;
-          }
+          //if (this.alignment.thresholdRight<0){
+          //if (this.alignment.thresholdRight<this.alignment.thresholdLeft){
+          //  this.alignment.thresholdRight=this.alignment.thresholdLeft+1;
+          // this.alignment.thresholdRight=0;
+          //}
           
     };
     
@@ -337,9 +339,9 @@ var TRun = Class.create({
     
     if (this.alignment != null) {
           this.alignment.thresholdLeft=run.alignment.thresholdLeft+inc;
-          if (this.alignment.thresholdLeft<0){
-            this.alignment.thresholdLeft=0;
-          }
+          //if (this.alignment.thresholdLeft<0){
+            //this.alignment.thresholdLeft=0;
+          //}
           
     };
     
