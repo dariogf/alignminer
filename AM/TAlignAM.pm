@@ -85,6 +85,8 @@ sub new {
         # # hash vacio para alojar el objeto
         # my $self  = {};
         
+        my $logger = get_logger();
+
         
         $logger->info("Alignment original length: ".$self->alignment->length);
         
@@ -802,14 +804,14 @@ sub extractAlphabet_and_slice {
     # check start of alignment
     $seqStr =~ /^([\.\*-])*/
    
-    if length($1 > $start){      
+    if (length($1) > $start){      
       $start = length($1);    
     }
     
     # check end of alignment
     $seqStr =~ /([\.\*-])*$/
    
-    if length($1 > $end){
+    if (length($1) > $end){
       $end = length($1);
     }
     
