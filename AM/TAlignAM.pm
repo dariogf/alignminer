@@ -85,12 +85,15 @@ sub new {
         # # hash vacio para alojar el objeto
         # my $self  = {};
         
-
+        
+        $logger->info("Alignment original length: ".$self->alignment->length);
         
         $self->{_alignment} = $alignment;
         
-        # get alphabet
-        $self->{_alphabet} = $self->extractAlphabet();
+        # get alphabet and slice alignment
+        $self->{_alphabet} = $self->extractAlphabet_and_slice();
+
+        $logger->info("Alignment usefull length: ".$self->alignment->length);
         
         $self->{_qInfo} = undef;
         
@@ -767,11 +770,17 @@ sub process {
 =cut
 
 #-----------------------------------------------------------------------------#
-sub extractAlphabet {
+sub extractAlphabet_and_slice {
   my $self = shift;
   # (my $) = @_;
   # body...
   
+  my $logger = get_logger();
+    
+  my $start = 0;
+  my $end = 0;
+  
+ 
   $self->{_alphabet} = 'dna';
   
   # for each sequence
@@ -788,9 +797,39 @@ sub extractAlphabet {
     if ($seqStr =~ m/[^ARGCYTMNSKNX\.\*-]/) {
       $self->{_alphabet} = 'protein';
     }
+
+  
+    # check start of alignment
+    $seqStr =~ /^([\.\*-])*/
+   
+    if length($1 > $start){      
+      $start = length($1);    
+    }
+    
+    # check end of alignment
+    $seqStr =~ /([\.\*-])*$/
+   
+    if length($1 > $end){
+      $end = length($1);
+    }
     
   }
+
+  $logger->info("Extracted alphabet: " . $self->alphabet);
   
+  if ($start>0 or $end>0){
+  
+    $end = $self->alignment->length - $end;
+    
+    if ($start < $end){
+      $self->alignment=$self->alignment->slice($start,$end);
+    }
+    
+    $logger->info("Sliced alignment: [ " . $start . " - " . $end." ]");
+    
+   }
+   
+   
   return $self->{_alphabet};
   
 }#extractAlphabet
@@ -800,5 +839,4 @@ sub extractAlphabet {
 
 1;  # so the require or use succeeds
    
-   
-   
+
