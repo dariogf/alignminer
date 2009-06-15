@@ -802,14 +802,14 @@ sub extractAlphabet_and_slice {
 
   
     # check start of alignment
-    $seqStr =~ /^([\.\*-])*/
+    $seqStr =~ /^([\.\*-])*/;
    
-    if (length($1) > $start){      
-      $start = length($1);    
+    if (length($1) > $start){
+      $start = length($1);
     }
     
     # check end of alignment
-    $seqStr =~ /([\.\*-])*$/
+    $seqStr =~ /([\.\*-])*$/;
    
     if (length($1) > $end){
       $end = length($1);
