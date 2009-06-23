@@ -88,10 +88,14 @@ sub new {
         my $logger = get_logger();
 
         
-        $logger->info("Alignment original length: ".$self->alignment->length);
         
         $self->{_alignment} = $alignment;
-        
+        $self->{_original_length} = $self->alignment->length;
+	 
+        $self->{_left_slice} = '0';
+
+        $logger->info("Alignment original length: ".$self->alignment->length);
+
         # get alphabet and slice alignment
         $self->{_alphabet} = $self->extractAlphabet_and_slice();
 
@@ -129,6 +133,24 @@ sub DESTROY {
 ##############################################
 ##     Métodos de acceso a propiedades      ##
 ##############################################
+
+sub original_length {
+   my $self = shift;
+   
+   my ( $param ) = @_; 
+   $self->{_original_length} = $param if defined($param);
+
+   return $self->{_original_length};
+}
+
+sub left_slice {
+   my $self = shift;
+   
+   my ( $param ) = @_; 
+   $self->{_left_slice} = $param if defined($param);
+
+   return $self->{_left_slice};
+}
 
 #-----------------------------------------------------------------------------#
 
@@ -432,6 +454,9 @@ sub getQuickInfo {
       }
   
       $qinfo{length}=$self->alignment->length;
+      $qinfo{original_length}=$self->original_length;
+      $qinfo{left_slice}=$self->left_slice;
+      
       
       $qinfo{numberOfSequences}=$self->alignment->no_sequences;
   
@@ -802,16 +827,16 @@ sub extractAlphabet_and_slice {
 
   
     # check start of alignment
-    $seqStr =~ /^([\.\*-])*/;
+    $seqStr =~ /^([\.\*-]*)/;
    
-    if (length($1) > $start){
+    if ((defined($1)) and (length($1) > $start)){
       $start = length($1);
     }
     
     # check end of alignment
-    $seqStr =~ /([\.\*-])*$/;
+    $seqStr =~ /([\.\*-]*)$/;
    
-    if (length($1) > $end){
+    if ((defined($1)) and (length($1) > $end)){
       $end = length($1);
     }
     
@@ -824,7 +849,9 @@ sub extractAlphabet_and_slice {
     $end = $self->alignment->length - $end;
     
     if ($start < $end){
-      $self->alignment=$self->alignment->slice($start,$end);
+      $self->{_left_slice}=$start;
+      #$self->alignment=$self->alignment->slice($start,$end);
+      $self->{_alignment} = $self->alignment->slice($start,$end);
     }
     
     $logger->info("Sliced alignment: [ " . $start . " - " . $end." ]");
