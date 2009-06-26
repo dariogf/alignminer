@@ -83,7 +83,6 @@ our $QSUB_EXE = '/usr/bin/sudo -u bioperl /usr/pbs/bin/qsub';
 our $RUNNING_FILE ='IS_RUNNING';
 our $SUBMITTED_FILE ='IS_SUBMITTED';
 
-
 $ENV{PATH} = '';
 
 #-----------------------------------------------------------------------------#

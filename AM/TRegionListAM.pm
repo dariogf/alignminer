@@ -481,6 +481,10 @@ sub addRegion {
     
     $elem{'startPos'}=$start;
     $elem{'endPos'}=$end;
+    
+    # $elem{'startPos'}=$start+$self->alignAM->left_slice();
+    # $elem{'endPos'}=$end+$self->alignAM->left_slice();
+    
     $elem{'score'}=sprintf("%.3f", $score);
     $elem{'score'}+=0; # convertir a numero para guardado en json correcto
     # round($score,2);
