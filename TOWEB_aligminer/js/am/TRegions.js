@@ -175,6 +175,7 @@ var TRegions = Class.create({
       
           // nueva celda con start
           td = new Element('td',{'width':"20%", 'class':"regionTableStart"});
+          
           td.update(this.regions[r].startPos);
     			row.appendChild(td);
 			  
@@ -236,7 +237,14 @@ var TRegions = Class.create({
       // var r = parseInt(element.up('tr').down('td').textContent);
       var r = element.up('tr').r;
       
-      run.showPosition(this.regions[r].startPos,this.regions[r].endPos, this.title, this.regions[r].num,true);
+      var left_slice=0;
+      
+      if (this.regions[r].left_slice != undefined) {
+        left_slice=this.regions[r].left_slice;
+      };
+      
+      // run.showPosition(this.regions[r].startPos,this.regions[r].endPos, this.title, this.regions[r].num,true,left_slice);
+      run.showPosition(this.regions[r].startPos,this.regions[r].endPos, this.title, this.regions[r].num,true,left_slice);
       
     };
     

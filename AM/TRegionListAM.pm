@@ -483,7 +483,10 @@ sub addRegion {
     # $elem{'endPos'}=$end;
     
     $elem{'startPos'}=$start+$self->alignAM->left_slice();
+    $elem{'left_slice'}=$self->alignAM->left_slice();
+    # +$self->alignAM->left_slice();
     $elem{'endPos'}=$end+$self->alignAM->left_slice();
+    # +$self->alignAM->left_slice();
     
     $elem{'score'}=sprintf("%.3f", $score);
     $elem{'score'}+=0; # convertir a numero para guardado en json correcto
@@ -661,7 +664,9 @@ sub saveRegionToMAF {
         print FILE "a score=",$e->{'score'}," type=$tipo\n";
         
         $tam = $e->{'endPos'}-$e->{'startPos'}+1;
-        $start = $e->{'startPos'} - $self->alignAM->alignment->left_slice();
+        $start = $e->{'startPos'}-$e->{'left_slice'};
+         # - $self->alignAM->left_slice();
+        my $start_display= $e->{'startPos'};
         
         for (my $seqindex = 1; $seqindex <= $self->alignAM->alignment->no_sequences(); $seqindex++) {
           my $seq = $self->alignAM->alignment->get_seq_by_pos($seqindex);
@@ -673,7 +678,9 @@ sub saveRegionToMAF {
           
           my $seqRegion = substr($seqStr,$start,$tam);
           
-          print FILE "s ",$seq->display_id," $start $tam + $longAlign $seqRegion\n";
+          
+          
+          print FILE "s ",$seq->display_id," $start_display $tam + $longAlign $seqRegion\n";
 			}      
         
     }

@@ -122,7 +122,7 @@ var TRun = Class.create({
     if (r1!=null) {
       //$('evtInfo').insert('<br>region at x:'+x+', is:'+r1.num);
       
-      this.showPosition(r1.startPos,r1.endPos,r1.regionName,r1.num,false);
+      this.showPosition(r1.startPos,r1.endPos,r1.regionName,r1.num,false,r1.left_slice);
     };
       
     
@@ -212,7 +212,14 @@ var TRun = Class.create({
   //----------------------------------
   // showPosition
   //----------------------------------
-  showPosition: function(from,to,regionName,pos,centering){
+  // showPosition: function(from,to,regionName,pos,centering){
+  showPosition: function(from,to,regionName,pos,centering,in_left_slice){
+
+    var left_slice = 0;
+    if (in_left_slice!=undefined) {
+      left_slice = in_left_slice;
+    };
+
     
     // Hay que buscar la página en la que esta
     this.currentGraph.showRegionInTable(regionName,pos);
@@ -226,7 +233,7 @@ var TRun = Class.create({
     };
     
       // nombre posicion
-      this.alignment.show(from,to,regionName.substr(0,3)+'-'+pos);
+      this.alignment.show(from-left_slice,to-left_slice,regionName.substr(0,3)+'-'+pos);
     
       if (centering) {
             this.currentGraph.graphBoard.centerGraphsAt(from,to,0,true,true);
@@ -235,10 +242,11 @@ var TRun = Class.create({
         this.currentGraph.graphBoard.paint(false);
       };
     
-      this.currentFrom = from;
-      this.currentTo = to;
+      this.currentFrom = from+left_slice;
+      this.currentTo = to+left_slice;
       this.currentPos = pos;
       this.currentRegion = regionName;
+      this.current_left_slice = left_slice;
     
       // resalta la línea de la tabla de regiones actual
       $(this.currentRegion+this.currentPos).addClassName('regionTableTRResaltada');
@@ -280,7 +288,7 @@ var TRun = Class.create({
   
   redrawPositions : function(){
       if (this.currentFrom>=0) {
-        this.showPosition(this.currentFrom,this.currentTo,this.currentRegion,this.currentPos,true);
+        this.showPosition(this.currentFrom,this.currentTo,this.currentRegion,this.currentPos,true,this.current_left_slice);
       }else{
         this.currentGraph.graphBoard.paint(false);
       };

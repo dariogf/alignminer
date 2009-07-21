@@ -135,11 +135,11 @@ var TAlignment = Class.create({
         // añade las bases de la secuencia, con un margen
   			for (var i=start-this.thresholdLeft; i <= end+this.thresholdRight; i++) {
           // only show valid positions
-  			  if ((i>=0) & (i<this.sequences[s+1].length)) {
-  			    
-    			  c=this.sequences[s+1].charAt(i);
+          if ((i>=0) & (i<this.sequences[s+1].length)) {
+            
+            c=this.sequences[s+1].charAt(i);
 
-    				td = new Element('td',{'class':this.colors.colorOf(c)});
+            td = new Element('td',{'class':this.colors.colorOf(c)});
             // añade una celda con la base
             if ((i<start) | (i>end)) {
             

@@ -567,18 +567,46 @@ sub _calculate {
     
     # guardaResultados
     
+    
+    # add left slice to array
+    my @left_slice = ();
+    
+    for (my $i = 0; $i <= $self->alignAM->left_slice(); $i++) {
+      push(@left_slice,$self->limit1FFT);
+    }
+    
+    push(@left_slice,@a);
+    
+    @a=@left_slice;
+
+    # convert to number
     for (my $i = 0; $i <= $#a; $i++) {
       $a[$i]=sprintf("%.3f", $a[$i]);
       $a[$i]+=0; # convertir a numero para guardado en json correcto
     }
     
+    
     # guarda a JSON
     saveToJSON("$JSON_OUTPUT_DIR".$self->name.".json",\@a);
     
+     
+    # add left slice to array
+    @left_slice = ();
+    
+    for (my $i = 0; $i <= $self->alignAM->left_slice(); $i++) {
+      push(@left_slice,$self->limit1FFT);
+    }
+    push(@left_slice,@afft);
+    
+    @afft=@left_slice;
+
+    
+    # convert to number 
     for (my $i = 0; $i <= $#afft; $i++) {
       $afft[$i]=sprintf("%.3f", $afft[$i]);
       $afft[$i]+=0; # convertir a numero para guardado en json correcto
     }
+    
     
     # guarda a JSON
     saveToJSON("$JSON_OUTPUT_DIR".$self->name."fft.json",\@afft);
