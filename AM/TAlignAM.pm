@@ -851,7 +851,7 @@ sub extractAlphabet_and_slice {
     if ($start < $end){
       $self->{_left_slice}=$start;
       #$self->alignment=$self->alignment->slice($start,$end);
-      $self->{_alignment} = $self->alignment->slice($start,$end);
+      $self->{_alignment} = $self->alignment->slice($start+1,$end);
     }
     
     $logger->info("Sliced alignment: [ " . $start . " - " . $end." ]");

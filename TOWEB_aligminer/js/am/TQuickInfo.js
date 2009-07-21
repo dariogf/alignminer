@@ -60,7 +60,10 @@ var TQuickInfo = Class.create({
       $('sequenceType').innerHTML = 'Sequence type:'+this.qinfo.alphabet;
 
       // alineamiento
-      $('alignmentLength').innerHTML = 'Alignment length:'+this.qinfo.length;
+      $('alignmentLength').innerHTML = 'Alignment length:'+this.qinfo.original_length;
+      
+      $('alignmentValidLength').innerHTML = 'Alignment valid length:'+this.qinfo.length;
+      
 
       // num secuencias
       $('numberOfSequences').innerHTML = 'Number of sequences:'+this.qinfo.numberOfSequences;

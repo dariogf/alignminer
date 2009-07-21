@@ -322,13 +322,13 @@ var TJobList = Class.create({
       
       // nueva celda con a length
       td = new Element('td',{'width':"10%"});
-      if ((this.jobList[r].qinfo.original_length!=undefined)){
-	
 
-      td.update(this.jobList[r].qinfo.length+' of '+this.jobList[r].qinfo.original_length);
-	}else{
-      this.updateTDInfo(td,this.jobList[r],'length');
-}
+      if ((this.jobList[r].qinfo != undefined) && (this.jobList[r].qinfo.original_length != undefined)){
+              td.update(this.jobList[r].qinfo.length+' of '+this.jobList[r].qinfo.original_length);
+      }else{
+              this.updateTDInfo(td,this.jobList[r],'length');
+            }
+      
 			row.appendChild(td);
       
       // nueva celda con num seqs

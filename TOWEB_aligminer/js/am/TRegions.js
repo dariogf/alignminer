@@ -6,6 +6,10 @@
 
 // 'tmpdata/'+runid+'/json/'+functionName+'_aboveFFT.json'
 
+/*
+  TODO - RESETEAR OFFSETS AL CAMBIAR DE REGION EN LA TABLA
+*/
+
 var TRegions = Class.create({
   //----------------------------------
   // Constructor

@@ -479,11 +479,11 @@ sub addRegion {
     
     my @a=$self->regionList;
     
-    $elem{'startPos'}=$start;
-    $elem{'endPos'}=$end;
+    # $elem{'startPos'}=$start;
+    # $elem{'endPos'}=$end;
     
-    # $elem{'startPos'}=$start+$self->alignAM->left_slice();
-    # $elem{'endPos'}=$end+$self->alignAM->left_slice();
+    $elem{'startPos'}=$start+$self->alignAM->left_slice();
+    $elem{'endPos'}=$end+$self->alignAM->left_slice();
     
     $elem{'score'}=sprintf("%.3f", $score);
     $elem{'score'}+=0; # convertir a numero para guardado en json correcto
@@ -661,7 +661,7 @@ sub saveRegionToMAF {
         print FILE "a score=",$e->{'score'}," type=$tipo\n";
         
         $tam = $e->{'endPos'}-$e->{'startPos'}+1;
-        $start = $e->{'startPos'};
+        $start = $e->{'startPos'} - $self->alignAM->alignment->left_slice();
         
         for (my $seqindex = 1; $seqindex <= $self->alignAM->alignment->no_sequences(); $seqindex++) {
           my $seq = $self->alignAM->alignment->get_seq_by_pos($seqindex);
