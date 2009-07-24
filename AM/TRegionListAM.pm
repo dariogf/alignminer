@@ -316,8 +316,9 @@ sub _filterRegions {
                 
                 if ($addR) {
                   # $logger->info("Adding Region");
-                  
-                  $self->addRegion($start,$end,$score/($end-$start+1));
+                  if ($end>$start){
+	                  $self->addRegion($start,$end,$score/($end-$start+1));
+		  }
                 }
                 
                 # fin anotacion
@@ -345,7 +346,9 @@ sub _filterRegions {
             }
             
             if ($addR) {
+		if ($end>$start){
               $self->addRegion($start,$end,$score/($end-$start+1));
+		}
             }
             
             # fin anotacion

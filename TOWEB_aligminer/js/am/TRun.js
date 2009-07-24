@@ -41,6 +41,7 @@ var TRun = Class.create({
     this.currentFrom = -1;
     this.currentTo = -1;
     this.currentPos = -1;
+    this.current_left_slice = -1;
     
     this.currentRegion = null;
   },
@@ -242,8 +243,9 @@ var TRun = Class.create({
         this.currentGraph.graphBoard.paint(false);
       };
     
-      this.currentFrom = from+left_slice;
-      this.currentTo = to+left_slice;
+      this.currentFrom = from;
+      this.currentTo = to;
+      //this.currentTo = to+left_slice;
       this.currentPos = pos;
       this.currentRegion = regionName;
       this.current_left_slice = left_slice;
@@ -377,7 +379,7 @@ var TRun = Class.create({
         this.oligoPeriodicalExecuter = new PeriodicalExecuter((function(pe){
           // pide el archivo al servidor
           if (this.alignment != null) {
-            this.alignment.getOligoSequence(this.currentFrom,this.currentTo,this.currentRegion);
+            this.alignment.getOligoSequence(this.currentFrom,this.currentTo,this.currentRegion,this.current_left_slice);
             this.oligoPeriodicalExecuter.stop();
           };
         }).bind(this), 2);

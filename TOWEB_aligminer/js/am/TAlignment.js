@@ -251,7 +251,7 @@ var TAlignment = Class.create({
   },
   
   // Muestra el trozo de alineamiento indicado
-  getOligoSequence: function(start,end,pos){
+  getOligoSequence: function(start,end,pos,left_slice){
     
      // alert(this.sequences);
      
@@ -273,7 +273,7 @@ var TAlignment = Class.create({
        
 
           // añade las bases de la secuencia, con un margen
-         for (var i=start-this.thresholdLeft; i <= end+this.thresholdRight; i++) {
+         for (var i=start-this.thresholdLeft-left_slice; i <= end+this.thresholdRight-left_slice; i++) {
             // only show valid positions
            if ((i>=0) & (i<this.sequences[s+1].length)) {
            
