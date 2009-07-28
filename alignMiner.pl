@@ -134,10 +134,13 @@ my $inputfilename="";
     my $argc = $#ARGV+1;
     
     my $mode = 'COMPLETE';
+    
+    my $alignment_start = 0;
+    my $alignment_end = 0;
 
     # si no hay parametros mostrar info
-    if (!($argc == 7)) {
-        print("Usage: \n#>".basename($0)." filename USERID RUNID MASTER JOBNAME REAL_FILENAME (QUICKINFO|COMPLETE)\n\n");
+    if (!($argc == 9)) {
+        print("Usage: \n#>".basename($0)." filename USERID RUNID MASTER JOBNAME REAL_FILENAME ALIGNMENT_START ALIGNMENT_END (QUICKINFO|COMPLETE)\n\n");
         exit;
     }
     
@@ -153,7 +156,10 @@ my $inputfilename="";
     my $JOBNAME = $ARGV[4];
     my $REAL_FILENAME= $ARGV[5];
     
-    $mode = $ARGV[6];
+    $alignment_start = $ARGV[6];
+    $alignment_end = $ARGV[7];
+    
+    $mode = $ARGV[8];
 # }
 # 
 # # obtener un numero unico para identificar el proceso
@@ -228,6 +234,27 @@ if ($mode eq "QUICKINFO") {
     
     # $alignAM->qInfo()->{'jobName'} = $JOBNAME;
     $alignAM->qInfo()->{'master'} = $MASTER;
+    
+    
+    
+    
+    if (($alignment_start>0) or ($alignment_end>0)) and ($alignment_end>$alignment_start){
+      $alignment_start= 0 if $alignment_start<0;
+      $alignment_end= $alignAM->alignment->length if ($alignment_end<=0 or $alignment_end>$alignAM->alignment->length);
+      
+      # modificar length y original length con el start y end del usuario
+      $qinfo{length}=$alignment_end-$alignment_start;
+      # $qinfo{original_length}=$self->original_length;
+      $qinfo{left_slice}=$alignment_start;
+      
+      # TODO - SLICE ALIGNMENT
+      # TODO - comprobar que no se hace el slice dos veces sobre el fichero alignment.json
+      
+    }
+    
+    $alignAM->qInfo()->{'alignment_start'} = $alignment_start;
+    $alignAM->qInfo()->{'alignment_end'} = $alignment_end;
+    
     # $alignAM->qInfo()->{'fileName'} = $REAL_FILENAME;
     $alignAM->saveQuickInfo();
     

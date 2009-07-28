@@ -121,7 +121,7 @@ sub cgiError {
 
 sub saveToEnviaSH {
     
-    my ($workDir,$alignment,$userId,$runId,$master, $jobName, $real_filename) = @_;
+    my ($workDir,$alignment,$userId,$runId,$master, $jobName, $real_filename, $alignment_start,$alignment_end) = @_;
     
     my $filename = $workDir."am_$runId.sh";
     

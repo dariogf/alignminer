@@ -452,7 +452,7 @@ sub getQuickInfo {
             $qinfo{'flush'}='0';
             $qinfo{'validAlignment'}='0';
       }
-  
+    
       $qinfo{length}=$self->alignment->length;
       $qinfo{original_length}=$self->original_length;
       $qinfo{left_slice}=$self->left_slice;
@@ -862,9 +862,6 @@ sub extractAlphabet_and_slice {
   return $self->{_alphabet};
   
 }#extractAlphabet
-
-
-
 
 1;  # so the require or use succeeds
    

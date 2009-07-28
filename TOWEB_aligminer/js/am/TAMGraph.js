@@ -162,11 +162,10 @@ var TAMGraph = Class.create({
 	    // si todos los datos están disponibles, crea las regiones.
 			this.regionsCONSERVATION = new TRegions('CONSERVATION',this.runid, this.graphName ,'aboveFFT','aboveTD',this.loadRegionDone.bind(this),'Sequence identity too high to determine specific conserved motives',false);
       // 
-      this.regionsDIVERGENCE = new TRegions('DIVERGENCE',this.runid, this.graphName ,'belowFFT','belowTD',this.loadRegionDone.bind(this),'Sequences can be considered identical, or too few sequences were provided',false);
-      //
+      this.regionsDIVERGENCE = new TRegions('DIVERGENCE',this.runid, this.graphName ,'belowFFT','belowTD',this.loadRegionDone.bind(this),'No divergent regions found, this can be because  sequences are too similar, too few sequences were provided or the submitted alignment is not accurate',false);
+      //                                                                    
       
-        
-
+      
       this.regionsSNP = new TRegions('SNP',this.runid, this.graphName ,'snp','snpTD',this.loadRegionDone.bind(this),'No SNP found, or too few sequences were provided', (this.type=='protein'));
       
       			
@@ -177,7 +176,6 @@ var TAMGraph = Class.create({
   	  
       // this.graphBoard.observe('graphBoard:oneclick', onOneClickGraphBoard.bind(this));
       
-		
   		var xg = new TXGrid(this.graphBoard,'#C8CACA',50);
   		var yg = new TYGrid(this.graphBoard,'#C8CACA',2,this.yLabel);
 		

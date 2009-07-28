@@ -76,6 +76,8 @@ sub save_file {
     
     
     my $master='NONE';
+    my $alignment_start = '0';
+    my $alignment_end = '0';
     
     my $_real_filename = $cgi->param('inputFile');
     my ($real_filename)= ($_real_filename =~ /^([\w\d\s\.\-]+)$/) if defined $_real_filename;
@@ -131,7 +133,7 @@ sub save_file {
         #system('/usr/bin/logger',$ALIGNMINER_EXE,$fileDest,$userEmail,$runidcgi,'QUICKINFO');
         
         # lanzar proceso de calculo alignminer, tiene que estar en CGI-Executables o no anda por el -T (tainted)
-        system($ALIGNMINER_EXE,$fileDest,$userEmail,$runidcgi,$master, $jobName, $real_filename,"QUICKINFO");
+        system($ALIGNMINER_EXE,$fileDest,$userEmail,$runidcgi,$master, $jobName, $real_filename,$alignment_start,$alignment_end,"QUICKINFO");
 
 
 # terminar respuesta html

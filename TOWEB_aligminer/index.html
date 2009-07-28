@@ -206,12 +206,16 @@
 				var runid =$('FRUNID').value;
 				var userid = $('FLOGINNAME').value;
 				var master = $('sequenceList').value;
+				var alignment_start = $('FALIGNMENT_START').value;
+				var alignment_end = $('FALIGNMENT_END').value;
+				
+				
 
 		    if ((runid!='') & (userid!='')){
 
 		      new Ajax.Request('/cgi-bin/alignminer/run.cgi', {
 		          method: 'get',
-		          parameters: {FRUNID: runid, USERID: userid, MASTER:master},
+		          parameters: {FRUNID: runid, USERID: userid, MASTER:master, FALIGNMENT_START:alignment_start, FALIGNMENT_END:alignment_end},
 		          // requestHeaders: {Accept: 'application/text'},
 		          // onSuccess: this.jobSent.bind(this)
 		          // onFailure: this.jobSentError.bind(this)
@@ -604,15 +608,18 @@
 												<select size="1" id="sequenceList" onchange="">
 												<option> NONE </option>
 												</select> 
-											
+										 		</p>
+												<p>
+													Alignment's subset begins at:&nbsp;<input id="FALIGNMENT_START" type="TEXT" name="FALIGNMENT_START" value="0" size="10"/>
+													&nbsp;&nbsp;&nbsp; and ends at:&nbsp;<input id="FALIGNMENT_END" type="TEXT" name="FALIGNMENT_END" value="0" size="10"/>&nbsp;&nbsp;(type 0 to use the whole alignmnent).
+												
 												<!-- boton submit -->
 												<!-- <input type="submit" name="submitBtn" class="sbtn" value="Run" /> -->
 												<input id="FRUNID" type="HIDDEN" name="FRUNID" value="0"/>
 												
 												<input type = "button" value = "Run" onclick = "doRun();"/>
-
+												
 											</p> <!-- fin contenido visible formulario -->
-
 		                 	</form> <!-- fin formulario para ejecutar el RUN -->
 									</div>
 

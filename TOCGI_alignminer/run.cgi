@@ -35,7 +35,16 @@ my $_runidcgi=$cgi->param('FRUNID');
 my ($runidcgi) = ($_runidcgi =~ /^([\w\d_]+)$/) if defined $_runidcgi;
 
 my $_masterSequence=$cgi->param('MASTER');
-my ($masterSequence) = ($_masterSequence =~ /^([\w\d]+)$/) if defined $_masterSequence;
+my $masterSequence = 'NONE';
+($masterSequence)=($_masterSequence =~ /^([\w\d]+)$/) if defined $_masterSequence;
+
+my $_alignment_start = $cgi->param('FALIGNMENT_START');
+my $alignment_start=0;
+($alignment_start) = ($_alignment_start =~ /^([\d]+)$/) if defined $_alignment_start;
+
+my $_alignment_end = $cgi->param('FALIGNMENT_END');
+my $alignment_end=0;
+($alignment_end) = ($_alignment_end =~ /^([\d]+)$/) if defined $_alignment_end;
 
 my $master=$masterSequence;
 
@@ -93,7 +102,7 @@ my $fileDest = "$UPLOAD_BASE_DIR$userId/$runidcgi/$ALIGNMENT_FILENAME";
           chdir "$UPLOAD_BASE_DIR$userId/$runidcgi";
           
           #crea el fichero enviaPBS.sh
-          my $enviaSH = saveToEnviaSH("$UPLOAD_BASE_DIR$userId/$runidcgi/",$fileDest,$userId,$runidcgi,$master, $jobName, $real_filename);
+          my $enviaSH = saveToEnviaSH("$UPLOAD_BASE_DIR$userId/$runidcgi/",$fileDest,$userId,$runidcgi,$master, $jobName, $real_filename, $alignment_start ,$alignment_end);
 
           #crea el comando
           my $cmd="$QSUB_EXE $enviaSH";
@@ -104,7 +113,7 @@ my $fileDest = "$UPLOAD_BASE_DIR$userId/$runidcgi/$ALIGNMENT_FILENAME";
           
         }else{
           # lanzar proceso de calculo alignminer, parece que tiene que estar en CGI-Executables o no anda por el -T (tainted)
-          system($ALIGNMINER_EXE,$fileDest,$userId,$runidcgi,$master, $jobName, $real_filename,'COMPLETE');
+          system($ALIGNMINER_EXE,$fileDest,$userId,$runidcgi,$master, $jobName, $real_filename,$alignment_start,$alignment_end,'COMPLETE');
         }
         
         # terminar respuesta html
@@ -112,7 +121,7 @@ my $fileDest = "$UPLOAD_BASE_DIR$userId/$runidcgi/$ALIGNMENT_FILENAME";
         
     # salir
     exit 0;
-
+    
   }
 
 #-------------------------------------------------------------
