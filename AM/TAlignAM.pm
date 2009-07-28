@@ -97,9 +97,7 @@ sub new {
         $logger->info("Alignment original length: ".$self->alignment->length);
 
         # get alphabet and slice alignment
-        $self->{_alphabet} = $self->extractAlphabet_and_slice();
-
-        $logger->info("Alignment usefull length: ".$self->alignment->length);
+        $self->{_alphabet} = $self->extractAlphabet();
         
         $self->{_qInfo} = undef;
         
@@ -797,17 +795,13 @@ sub process {
 =cut
 
 #-----------------------------------------------------------------------------#
-sub extractAlphabet_and_slice {
+sub extractAlphabet {
   my $self = shift;
   # (my $) = @_;
   # body...
   
   my $logger = get_logger();
-    
-  my $start = 0;
-  my $end = 0;
   
- 
   $self->{_alphabet} = 'dna';
   
   # for each sequence
@@ -824,44 +818,173 @@ sub extractAlphabet_and_slice {
     if ($seqStr =~ m/[^ARGCYTMNSKNX\.\*-]/) {
       $self->{_alphabet} = 'protein';
     }
-
-  
-    # check start of alignment
-    $seqStr =~ /^([\.\*-]*)/;
-   
-    if ((defined($1)) and (length($1) > $start)){
-      $start = length($1);
-    }
-    
-    # check end of alignment
-    $seqStr =~ /([\.\*-]*)$/;
-   
-    if ((defined($1)) and (length($1) > $end)){
-      $end = length($1);
-    }
     
   }
 
   $logger->info("Extracted alphabet: " . $self->alphabet);
+                                      
+   
+   
+  return $self->{_alphabet};
+  
+}#extractAlphabet
+
+#-----------------------------------------------------------------------------#
+
+=head2 calculate_automatic_slice
+
+ Title   : calculate_automatic_slice
+ Usage   : (my $start, my $end ) = calculate_automatic_slice();
+ 
+ Function: description
+
+ Returns : Start and end of automatic slice
+ Args    : none
+
+=cut
+
+#-----------------------------------------------------------------------------#
+sub calculate_automatic_slice {
+
+  my $self = shift;
+  # (my $) = @_;
+  # body...
+  
+  my $logger = get_logger();
+  my $required_columns = 2;
+  
+  my $start = 0;
+  my $end = 0;
+
+  my $seq='';
+  my $base;
+
+  my $count_ok = 0;
+
+  # check start of alignment
+  # $seqStr =~ /^([\.\*-]*)/;
+  # # ^(.*?[^\.\*-][^\.\*-]+?)
+  
+  
+  # Empieza por el principio
+  for (my $pos = 1; $pos < $self->alignment->length; $pos++) {
+    
+    # for each sequence
+    for (my $seqindex = 1; $seqindex <= $self->alignment->no_sequences(); $seqindex++) {
+      
+      $seq = $self->alignment->get_seq_by_pos($seqindex);
+      $base = $seq->subseq($pos, $pos);
+      
+      
+      if ($base !~ /[\.\*-]/) {
+        # $logger->info("OK:$base"); 
+        $count_ok++;
+      }else{
+        # $logger->info("NO-OK:$base"); 
+        $count_ok=0;
+      }
+      # $logger->info("count_ok:$count_ok");
+      
+    }
+    
+    # $logger->info("count_ok:$count_ok");
+    
+    if ($count_ok >= $self->alignment->no_sequences() * $required_columns){
+      $logger->info("Found $count_ok bases for $required_columns non-empty columns at start");
+      $start = $pos;
+      last;
+    }
+    
+  }
+  
+  # Empieza por el final
+  for (my $pos = $self->alignment->length; $pos >0 ; $pos--) {
+    
+    # for each sequence
+    for (my $seqindex = 1; $seqindex <= $self->alignment->no_sequences(); $seqindex++) {
+      
+      $seq = $self->alignment->get_seq_by_pos($seqindex);
+      $base = $seq->subseq($pos, $pos);
+
+      if ($base !~ /[\.\*-]/) {
+        $count_ok++;
+      }else{
+        $count_ok=0;
+      }
+    }
+    
+    if ($count_ok >= ($self->alignment->no_sequences() * $required_columns)){
+      $end = $pos;
+      $logger->info("Found $count_ok bases for $required_columns non-empty columns at end");
+      last;
+    }
+    
+  }
+  
+  
+   
+  return ($start,$end);
+
+
+}#calculate_automatic_slice
+
+
+#-----------------------------------------------------------------------------#
+
+=head2 slice_alignment
+
+ Title   : slice_alignment
+ Usage   : slice_alignment();
+ 
+ Function: Slices the alignment based on left_slice and length properties
+
+ Returns : 
+ Args    : left_slice, length
+
+=cut
+
+#-----------------------------------------------------------------------------#
+sub slice_alignment {
+  my $self = shift;
+  (my $start, my $end) = @_;
+  # body...
+  
+  my $logger = get_logger();
+    
+  # calculate automatic slice
+  if ($start==0 and $end==0){
+    $logger->info("Calculating slice range automatically");
+    
+    ($start,$end) = $self->calculate_automatic_slice();
+    
+    $logger->info("Calculated slice range: [ " . $start . " - " . $end." ]");
+    
+  }
+  
   
   if ($start>0 or $end>0){
   
-    $end = $self->alignment->length - $end;
+    # $end = $self->alignment->length - $end;
     
     if ($start < $end){
-      $self->{_left_slice}=$start;
+
       #$self->alignment=$self->alignment->slice($start,$end);
       $self->{_alignment} = $self->alignment->slice($start+1,$end);
+      
+      $self->{_left_slice}=$start;
+      $self->qInfo()->{'left_slice'}=$start;
+      $self->qInfo()->{'length'}=$self->alignment->length;
+      
+      
     }
     
     $logger->info("Sliced alignment: [ " . $start . " - " . $end." ]");
     
    }
    
+   $logger->info("Alignment usefull length: ".$self->alignment->length." of ".$self->original_length);
    
-  return $self->{_alphabet};
-  
-}#extractAlphabet
+}#slice_alignment
 
 1;  # so the require or use succeeds
    

@@ -541,6 +541,8 @@ sub _calculate {
     # calcula límites FFT
     $self->calculateLimitsFFT();
     
+    # TODO - Repasar límites de regiones
+    
     # regiones para normal
     my $below = AM::TRegionListAM->new($self->name.'_below',sub {$_[0]<=$_[1]},$self->limit1,$self->alignAM,0,\@a);
     my $above = AM::TRegionListAM->new($self->name.'_above',sub {$_[0]>=$_[1]},$self->limit2,$self->alignAM,0,\@a);
@@ -571,11 +573,22 @@ sub _calculate {
     # add left slice to array
     my @left_slice = ();
     
+    # add the left_sliced part
     for (my $i = 0; $i <= $self->alignAM->left_slice(); $i++) {
       push(@left_slice,$self->limit1FFT);
     }
     
+    # add the function data
     push(@left_slice,@a);
+    
+    $logger->info("Filling from ".$self->alignAM->alignment->length." to " .$self->alignAM->original_length() );
+    my $test=0;
+    # add the rigth sliced part
+    for (my $i = $self->alignAM->alignment->length; $i <= $self->alignAM->original_length(); $i++) {
+      push(@left_slice,$self->limit1FFT);
+      $test++;
+    }
+    $logger->info("Filled: $test");
     
     @a=@left_slice;
 
@@ -591,12 +604,20 @@ sub _calculate {
     
      
     # add left slice to array
-    @left_slice = ();
+    @left_slice = ();         
     
+    # add the left_sliced part    
     for (my $i = 0; $i <= $self->alignAM->left_slice(); $i++) {
       push(@left_slice,$self->limit1FFT);
     }
+    
+    # add fft data
     push(@left_slice,@afft);
+     
+    # add right part
+    for (my $i = $self->alignAM->alignment->length; $i <= $self->alignAM->original_length(); $i++) {
+      push(@left_slice,$self->limit1FFT);
+    }
     
     @afft=@left_slice;
 

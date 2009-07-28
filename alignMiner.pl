@@ -1,6 +1,8 @@
 #!/usr/bin/perl -w
 ### param1 param2
 
+# TODO - Repasar restricciones regiones
+
 
 # Dario Guerrero
 # =======================
@@ -226,7 +228,7 @@ if ($mode eq "QUICKINFO") {
     $alignAM->qInfo()->{'fileName'} = $REAL_FILENAME;
     $alignAM->saveQuickInfo();
     
-}else{
+}else{ # COMPLETE MODE
     
     $logger->info("Processing alignment");
     
@@ -237,18 +239,20 @@ if ($mode eq "QUICKINFO") {
     
     
     
-    
-    if (($alignment_start>0) or ($alignment_end>0)) and ($alignment_end>$alignment_start){
+    # slice the alignment
+    if ((($alignment_start>0) or ($alignment_end>0)) and ($alignment_end>$alignment_start)){
       $alignment_start= 0 if $alignment_start<0;
       $alignment_end= $alignAM->alignment->length if ($alignment_end<=0 or $alignment_end>$alignAM->alignment->length);
       
-      # modificar length y original length con el start y end del usuario
-      $qinfo{length}=$alignment_end-$alignment_start;
-      # $qinfo{original_length}=$self->original_length;
-      $qinfo{left_slice}=$alignment_start;
-      
       # TODO - SLICE ALIGNMENT
+      $alignAM->slice_alignment($alignment_start,$alignment_end);
+      
       # TODO - comprobar que no se hace el slice dos veces sobre el fichero alignment.json
+      
+    }else{
+
+      # automatic slice
+      $alignAM->slice_alignment(0,0);
       
     }
     
