@@ -323,7 +323,7 @@ var TRegions = Class.create({
       if (this.pageCount()>0) {
           td = new Element('td',{ 'style' : 'text-align: right;'});
 
-      		a = new Element('a',{'href':cgiPath+'download.cgi?F='+this.runid + '/data/' + this.graphName + '_'+type+'.maf'});
+      		a = new Element('a',{'href':cgiPath+'download.cgi?F='+this.runid + '/data/' + this.graphName + '_'+type+'FFT.maf'});
           a.update('&nbsp;&nbsp;&nbsp;<img src="images/save.gif" border="0" alt="Save">');
           td.update(a);
           tr.appendChild(td);

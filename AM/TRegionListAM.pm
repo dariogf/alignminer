@@ -558,12 +558,12 @@ sub regionExists {
     $width = $endElem-$startElem;
     $middle = $startElem + ($width/2);
     
-    $logger->info("  --- ck[$startElem,$endElem] in [$start,$end]");
+    # $logger->info("  --- ck[$startElem,$endElem] in [$start,$end]");
     # la region está dentro del intervalo
     
     # if (($startElem>= $start) and ($startElem<=$end)) {
     if (($middle>= $start) and ($middle<=$end)) {
-      $logger->info(" -> Found M: $middle de [$startElem,$endElem] en [$start,$end]");
+      # $logger->info(" -> Found M: $middle de [$startElem,$endElem] en [$start,$end]");
       
       # existe una región que empieza dentro de la actual.
       $found++;
@@ -594,7 +594,7 @@ sub regionExists {
     $res = 1;
   }
   
-  $logger->info("¿regionExists in [$start,$end] = $res?");
+  # $logger->info("¿regionExists in [$start,$end] = $res?");
   
   
   return $res;
@@ -783,6 +783,94 @@ sub saveRegionToMAF {
     
 }#saveRegionToMAF
 
+#-----------------------------------------------------------------------------#
+
+=head2 save_stats
+
+ Title   : save_stats
+ Usage   : save_stats();
+ 
+ Function: Saves stats to a file
+
+ Returns : returns
+ Args    : arguments
+
+=cut
+
+#-----------------------------------------------------------------------------#
+sub save_stats {
+
+  my $self = shift;
+    
+  #my ($filename) = @_;
+  
+  my $tipo = '';
+  
+  my $logger=get_logger();
+
+  my $descr = $self->description;
+  
+  if ($descr =~ m/_above/) {
+  	$tipo = 'CON';
+  	$descr =~ s/_above/_CON/;
+  }elsif ($descr =~ m/_below/) {
+  	$tipo = 'DIV';
+  	$descr =~ s/_below/_DIV/;
+  }elsif ($descr =~ m/_snp/) {
+  	$tipo = 'SNP';
+  	$descr =~ s/_snp/_SNP/;
+  }
+  
+  # my $filename = $DATA_OUTPUT_DIR.$descr.'_STATS.txt';
+  my $filename = $DATA_OUTPUT_DIR.'STATS.txt';
+  
+	$logger->info("Saving STATS for ".$filename);
+  
+  my @rl = $self->regionList;
+  
+  open (FILE, ">>$filename");
+  
+	print FILE "#    STATS for $descr\n";
+	
+	print FILE "#=============\n";
+  print FILE "RANGE\tCOUNT\n";
+  
+  my $i=0;
+  my $tam = 0;
+  my $start = 0;
+  
+  my $ra=0;
+  my $rb=0;
+  my $rc=0;
+  
+  
+  
+  my $longAlign = $self->alignAM->alignment->length();
+  
+  my $j="";
+  
+  foreach my $e (@rl) {
+      $tam = $e->{'endPos'}-$e->{'startPos'}+1;
+      if ($tam>=0 and $tam<=5) {
+        $ra++;
+      }elsif ($tam>=6 and $tam<=10) {
+        $rb++;
+      }else{
+        $rc++;
+      }
+      
+  }
+  
+  print FILE "[0-5]\t$ra\n";
+  print FILE "[6-10]\t$rb\n";
+  print FILE "[11,inf]\t$rc\n";
+  
+  print FILE "\n\n";
+  
+  close(FILE);
+
+
+}#save_stats
 
 
 1;  # so the require or use succeeds

@@ -549,6 +549,7 @@ sub _calculate {
     
     my $snp = AM::TRegionListAM->new($self->name.'_snp',sub {$_[0]<=$_[1]},$self->limit1,$self->alignAM,1,\@a);
     
+    $snp->save_stats();
     
     $self->belowRegionList($below);
     $self->aboveRegionList($above);
@@ -559,6 +560,9 @@ sub _calculate {
     # regiones para fft
     my $belowFFT = AM::TRegionListAM->new($self->name.'_belowFFT',sub {$_[0]<=$_[1]},$self->limit1FFT,$self->alignAM,0,\@afft,$below);
     my $aboveFFT = AM::TRegionListAM->new($self->name.'_aboveFFT',sub {$_[0]>=$_[1]},$self->limit2FFT,$self->alignAM,0,\@afft,$above);
+    
+    $belowFFT->save_stats();
+    $aboveFFT->save_stats();
     
     # ASK-DONE - Los SNP creo que solo se calculan sin FFT
     # my $snpFFT = AM::TRegionListAM->new($self->name.'_snpFFT',sub  {$_[0]>=$_[1]},$self->limit2FFT,$self->alignAM,1,@afft);
