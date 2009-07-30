@@ -72,8 +72,8 @@ our $UPLOAD_BASE_DIR= '/export/home_users/home/soft/bioperl/tmpdata/';
 
 our $ALIGNMENT_FILENAME= 'alignment.file';
 
-# our $USING_BATCH = 1;
-our $USING_BATCH = 0;
+our $USING_BATCH = 1;
+# our $USING_BATCH = 0;
 
 # our $ALIGNMINER_EXE = '/export/home_users/home/soft/bioperl/ambeta/alignMiner.pl';
 our $ALIGNMINER_EXE = '/export/home_users/home/soft/bioperl/alignminer/alignMiner.pl';
