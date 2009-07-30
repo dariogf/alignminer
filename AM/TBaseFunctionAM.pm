@@ -574,7 +574,7 @@ sub _calculate {
     my @left_slice = ();
     
     # add the left_sliced part
-    for (my $i = 0; $i <= $self->alignAM->left_slice(); $i++) {
+    for (my $i = 0; $i < $self->alignAM->left_slice(); $i++) {
       push(@left_slice,$self->limit1FFT);
     }
     

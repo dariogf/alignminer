@@ -308,6 +308,7 @@ sub _filterRegions {
                 # comprobar si esta región tiene otra mandatory dentro
                 if (defined($mandatoryRegions)) {
                   if ($mandatoryRegions->regionExists($start,$end,2)==0){
+                    # descomentar abajo
                     $addR = 0;
                     # $logger->info("Skipping Region");
                     
@@ -316,9 +317,10 @@ sub _filterRegions {
                 
                 if ($addR) {
                   # $logger->info("Adding Region");
-                  if ($end>$start){
+                  # TODO - add =
+                  if ($end>=$start){
 	                  $self->addRegion($start,$end,$score/($end-$start+1));
-		  }
+		              }
                 }
                 
                 # fin anotacion
@@ -345,10 +347,11 @@ sub _filterRegions {
               }
             }
             
+            # TODO - add =
             if ($addR) {
-		if ($end>$start){
-              $self->addRegion($start,$end,$score/($end-$start+1));
-		}
+		          if ($end>=$start){
+                $self->addRegion($start,$end,$score/($end-$start+1));
+		          }
             }
             
             # fin anotacion
@@ -425,7 +428,7 @@ sub _filterSNP {
             }else{
                 $end=$i-1;
                 
-                # Si el ancho es 1
+                # Si el ancho es 1, es un SNP
                 if ($start == $end ){
                     
                     # ASK-DONE -Cómo se sabe qué letra genera el pico de la gráfica
@@ -508,12 +511,12 @@ sub addRegion {
 =head2 regionExists
 
  Title   : regionExists
- Usage   : $self->regionExists($start, $end);
+ Usage   : $self->regionExists($start, $end, $count);
  
  Function: Determina si existe alguna región en el rango determinado
 
  Returns : 1/0
- Args    : $start, $end
+ Args    : $start, $end, $count
 
 =cut
 
@@ -526,6 +529,8 @@ sub regionExists {
   
   my @regions=$self->regionList;
   
+  my $middle;
+  my $width;
   my $startElem = 0;
   my $endElem = 0;
   my %elem;
@@ -533,37 +538,48 @@ sub regionExists {
   my $res = 0;
   my $found = 0;
   
+  my $logger=get_logger();
+  
   # IMPROVEMENT -Optimizar empezando en la última región que se visitó.
+  $logger->info("¿regionExists in [$start,$end]?");
   
   # foreach my $e (@regions) {
     
-  for (my $i = $self->lastMandatoryRegion(); $i <= $#regions; $i++) {
+  # for (my $i = $self->lastMandatoryRegion(); $i <= $#regions; $i++) {
+  for (my $i = 0; $i <= $#regions; $i++) {
 
     %elem = %{$regions[$i]};
     
     $self->lastMandatoryRegion($i);
     
-    $startElem = $elem{'startPos'};
-    $endElem = $elem{'endPos'};
+    $startElem = $elem{'startPos'}-$elem{'left_slice'};
+    $endElem = $elem{'endPos'}-$elem{'left_slice'};
     
+    $width = $endElem-$startElem;
+    $middle = $startElem + ($width/2);
+    
+    $logger->info("  --- ck[$startElem,$endElem] in [$start,$end]");
     # la region está dentro del intervalo
-    if (($startElem>= $start) and ($startElem<=$end)) {
+    
+    # if (($startElem>= $start) and ($startElem<=$end)) {
+    if (($middle>= $start) and ($middle<=$end)) {
+      $logger->info(" -> Found M: $middle de [$startElem,$endElem] en [$start,$end]");
       
       # existe una región que empieza dentro de la actual.
       $found++;
       
       # Si es una region muy amplia >2 (no snp), tomar como buena inmediatamente
-      if (($endElem-$startElem)>=1) {
+      if (($width)>1) {
         $res=1;
       }
       
-      if (($res) or ($found == $count)) {
+      if (($res) or ($found >= $count)) {
         last;
       }
     }
     
     # finaliza busqueda si se pasa por la derecha
-    if ($startElem>$end) {
+    if ($middle>$end) {
       # if ($i>0) {
       #   $self->lastMandatoryRegion($i-1);
       # }
@@ -574,13 +590,87 @@ sub regionExists {
     
   }
   
-  if (($res) or ($found == $count)) {
+  if (($res) or ($found >= $count)) {
     $res = 1;
   }
+  
+  $logger->info("¿regionExists in [$start,$end] = $res?");
+  
   
   return $res;
   
 }#regionExists
+
+
+# sub regionExists2 {
+# 
+#   my $self = shift;
+#   
+#   my ($start, $end, $count) = @_;
+#   
+#   my @regions=$self->regionList;
+#   
+#   my $middle;
+#   my $startElem = 0;
+#   my $endElem = 0;
+#   my %elem;
+#   
+#   my $res = 0;
+#   my $found = 0;
+#   
+#   my $logger=get_logger();
+#   
+#   # IMPROVEMENT -Optimizar empezando en la última región que se visitó.
+#   
+#   # foreach my $e (@regions) {
+#     
+#   for (my $i = $self->lastMandatoryRegion(); $i <= $#regions; $i++) {
+# 
+#     %elem = %{$regions[$i]};
+#     
+#     $self->lastMandatoryRegion($i);
+#     
+#     $startElem = $elem{'startPos'};
+#     $endElem = $elem{'endPos'};
+#     
+#     # la region está dentro del intervalo
+#     if (($startElem>= $start) and ($startElem<=$end)) {
+#       
+#       # existe una región que empieza dentro de la actual.
+#       $found++;
+#       
+#       # Si es una region muy amplia >2 (no snp), tomar como buena inmediatamente
+#       if (($endElem-$startElem)>=1) {
+#         $res=1;
+#       }
+#       
+#       if (($res) or ($found == $count)) {
+#         last;
+#       }
+#     }
+#     
+#     # finaliza busqueda si se pasa por la derecha
+#     if ($startElem>$end) {
+#       # if ($i>0) {
+#       #   $self->lastMandatoryRegion($i-1);
+#       # }
+#       
+#       last;
+#     }
+#     
+#     
+#   }
+#   
+#   if (($res) or ($found == $count)) {
+#     $res = 1;
+#   }
+#   
+#   $logger->info("¿regionExists in [$start,$end] = $res?");
+#   
+#   
+#   return $res;
+#   
+# }#regionExists
 
 #-----------------------------------------------------------------------------#
 
