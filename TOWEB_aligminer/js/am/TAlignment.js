@@ -312,6 +312,12 @@ var TAlignment = Class.create({
     };    
     // return seqs;
 		
+  },  
+  
+  colorizeOligoSequence: function(seq){
+    var res = seq
+    
+    return res
   },
     
   // Muestra el trozo de alineamiento indicado
@@ -396,7 +402,8 @@ var TAlignment = Class.create({
               // var td = new Element('td',{'width':'100px'});
               var td = new Element('td');
               // td.update('<pre>'+seq+'</pre>');
-              td.update(seq);
+              
+              td.update(this.colorizeOligoSequence(seq));
               tr.appendChild(td);
             
               // seq size
