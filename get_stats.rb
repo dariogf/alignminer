@@ -2,8 +2,16 @@
 
 require 'json'
 
-ls=`ls */data/STAT*`
-destino='stats/'
+if ARGV.count!=2
+puts "USO: get_stats.rb origen destino"
+exit
+end
+
+origen=ARGV[0]
+ls=`ls #{origen}*/data/STAT*`
+destino=ARGV[1]+'/'
+
+`mkdir #{destino}`
 
 dirs=ls.split("\n")
 

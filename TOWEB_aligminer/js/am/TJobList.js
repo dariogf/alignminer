@@ -365,7 +365,11 @@ var TJobList = Class.create({
           if (this.jobList[r].status=='ERROR') {
               td.update('<span id="errorIndicator">'+this.jobList[r].status+'</span>');
           }else{
-              td.update(this.jobList[r].status);
+               a = new Element('a',{'href':cgiPath+'download.cgi?F='+this.processedUserName+'/'+this.jobList[r].id + '/data/STATS.txt'});
+
+               a.update(this.jobList[r].status);
+              td.update(a);
+             // td.update(this.jobList[r].status);
           };
           
         };
