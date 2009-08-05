@@ -35,7 +35,8 @@
 }
 
 .gc-end{ 
-  color: green;
+  color: white;
+  background:green;
 }
 .alignmentResultTable a{
 	color: #0c1578;

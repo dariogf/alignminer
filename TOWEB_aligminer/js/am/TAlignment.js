@@ -315,7 +315,7 @@ var TAlignment = Class.create({
   },  
   
   colorizeOligoSequence: function(seq){
-	var re = new RegExp('([cgCG]{2,3}$)', "g")
+	var re = new RegExp('([cgCG]{1,3}$)', "g")
 
 
 	var fin = seq.split(re)
