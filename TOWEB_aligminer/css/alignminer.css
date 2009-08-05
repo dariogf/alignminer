@@ -34,6 +34,9 @@
   color: white;
 }
 
+.gc-end{ 
+  color: green;
+}
 .alignmentResultTable a{
 	color: #0c1578;
 	font-size: 14px;

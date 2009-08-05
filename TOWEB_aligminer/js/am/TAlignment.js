@@ -315,8 +315,16 @@ var TAlignment = Class.create({
   },  
   
   colorizeOligoSequence: function(seq){
-    var res = seq
-    
+	var re = new RegExp('([cgCG]{2,3}$)', "g")
+
+
+	var fin = seq.split(re)
+	var res = fin[0].split('').join('<wbr>')
+
+	if (fin[1] != undefined) {
+	  res = res + '<span class="gc-end">'+fin[1].split('').join('<wbr>')+"</span>"
+	}
+
     return res
   },
     
@@ -391,7 +399,7 @@ var TAlignment = Class.create({
             
               var seq = oligos[i]['seq'];
               
-              seq = seq.split('').join('<wbr>');
+              //seq = seq.split('').join('<wbr>');
               
               // seq = seq.split('').join('&shy;')
               // seq = seq.split('').join('</span><span>');
