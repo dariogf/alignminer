@@ -80,13 +80,24 @@ $VERSION     = "v 0.01";
 
 our $AMVERSION = '109';
 
-# our $BASE_OUTPUT_DIR = '/srv/www/htdocs/alignminer/tmpdata/';
+
 our $BASE_OUTPUT_DIR= '/export/home_users/home/soft/bioperl/tmpdata/';
+our $ALIGNMINER_INSTALL_DIR = '/export/home_users/home/soft/bioperl/alignminer/';
+
+
+my $ALIGNMINER_RUN_MODE= 'development';
+
+if ($ALIGNMINER_RUN_MODE eq 'development'){
+
+	 $BASE_OUTPUT_DIR = '/progs/tmpdata/';
+	 $ALIGNMINER_INSTALL_DIR = '/progs/alignminer/';
+}
+
+
 
 our $USERID = 'ANONYMOUS';
 our $RUNID = 0;
 our $OUTPUT_DIR = $BASE_OUTPUT_DIR;
-our $ALIGNMINER_INSTALL_DIR = '/export/home_users/home/soft/bioperl/alignminer/';
 
 our $RUNNING_FILE ='IS_RUNNING';
 our $SUBMITTED_FILE ='IS_SUBMITTED';

@@ -290,8 +290,8 @@ var TJobList = Class.create({
       
       // nueva celda jobid/name
       td = new Element('td',{'width':"10%", 'class':"id"});
-      if (this.jobList[r].status=='DONE') {
-        a = new Element('a',{'href':"javascript:showRun('"+jname+"','" +this.jobList[r].id + "',jobList);"});
+      if ((this.jobList[r].status=='DONE') || (this.jobList[r].status=='SAMPLE DATA')) {
+        a = new Element('a',{'href':"javascript:showRun('"+jname+"','" +this.jobList[r].id + "',jobList, '"+this.jobList[r].status+"');"});
         a.update(jname);
         td.update(a);
         
@@ -382,7 +382,7 @@ var TJobList = Class.create({
 		  
 		  // nueva celda con status
 			td = new Element('td',{'width':"2%"});
-			if ((this.jobList[r].status!='RUNNING') & (this.jobList[r].status!='QUEUED')) {
+			if ((this.jobList[r].status!='RUNNING') & (this.jobList[r].status!='QUEUED') & (this.jobList[r].status!='SAMPLE DATA')) {
 			  a = new Element('a',{'href':"javascript:deleteRun('" +this.jobList[r].id + "')"});
         a.update('<img src="images/borrar.png" border="0" alt="Borrar">');
         td.update(a);

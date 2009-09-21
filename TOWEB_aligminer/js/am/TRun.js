@@ -216,6 +216,10 @@ var TRun = Class.create({
   // showPosition: function(from,to,regionName,pos,centering){
   showPosition: function(from,to,regionName,pos,centering,in_left_slice){
 
+	 SAMPLE_STAGE='TABLE';
+  	populateSampleDIV();
+
+
     var left_slice = 0;
     if (in_left_slice!=undefined) {
       left_slice = in_left_slice;
@@ -268,6 +272,10 @@ var TRun = Class.create({
   //----------------------------------
   showGraph: function(graph){
     this[graph].showGraph();
+    
+	 SAMPLE_STAGE='GRAPH';
+  	populateSampleDIV();
+
     
     if (this.currentGraph!=null) {
       $(this.currentGraph.graphName+'Graph').removeClassName('graficaResaltada');

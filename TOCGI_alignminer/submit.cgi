@@ -56,6 +56,12 @@ sub save_file {
     my $_jobName = $cgi->param('FJOBNAME');
     my ($jobName) = ($_jobName =~ /^([\w\d\s\.\-]+)$/) if defined $_jobName;
     
+    if (! defined $jobName){
+    	$jobName = ''
+    }
+    
+    
+    
     if (!$userEmail) {
       $userEmail = "ANONYMOUS";
     }

@@ -80,6 +80,10 @@
 				window.location.reload();
 			}
 			
+			function hideSampleDIV(){
+					$('sampleDIV').hide();
+			}
+			
 			function checkEnterInLogin (event) {
 
 				// if (event.keyCode!=13){
@@ -140,6 +144,94 @@
 				
 			}
 			
+			function doSampleLogin () {
+				
+				var loginName = 'amsample@scbi.uma.es'
+				//$('FLOGINNAME').value;
+				
+				SAMPLE_MODE = true
+				SAMPLE_STAGE= 'SUBMIT'
+				
+				jobList = new TJobList(loginName,'jobListRowDiv','wellcome');
+				jobList.checkUser(loginName);
+				
+				if ((jobList!=undefined) & (jobList.validUser)) {
+					
+						$('FUSEREMAIL').value=jobList.processedUserName;
+				
+						$('titulo1').hide();
+						$('sampleDIV').hide();	
+				
+						$('titulo2').appear();
+				
+						$('wellcomeTR').appear();
+				
+						$('sepSUBMIT').appear();
+						$('titSUBMIT').appear();
+						$('rowSUBMIT').appear();
+				
+						$('sepJOBLIST').appear();
+						$('titJOBLIST').appear();
+						$('rowJOBLIST').appear();
+						
+						if (SAMPLE_MODE) {
+							$('sampleDIV').appear();	
+						}
+
+        		populateSampleDIV();
+				
+						ensureShow('rowJOBLIST','jobListToggleImg',0.4);
+						
+						jobList.startPolling(1);
+						
+				}else{
+					$('InvalidEmail').update('Invalid email');
+					Effect.Shake($('loginDiv'));
+				};
+				
+			}
+			
+			function populateSampleDIV(){
+				var res='';
+				var title='';
+				
+								if (SAMPLE_STAGE== 'SUBMIT') {
+
+									title = 'Submit and browse';
+									res = 
+									res = res + 'You can browse existing jobs in the JOB LIST section or submit a new one using the SUBMIT form. Use this <a href="data/alignment.txt" target="_blank">sample data</a> to test the submit procedure if you like. Otherwise, click on an existing job to view its results.';																	
+								}
+								
+								if (SAMPLE_STAGE== 'BROWSE') {
+
+									title = 'Browsing existing jobs';
+									res = 
+									res = res + 'You have selected an existing job. In the RESULTS section you can see a list of all the computed methods. Click one of them to view the actual results.';
+								}
+
+								if (SAMPLE_STAGE== 'GRAPH') {
+
+									title = 'Method\'s results';
+									res = 
+									res = res + 'In the graph are shown the scores assigned to each position of the alignment. In the tables below the graph, you can see the interesting regions that have been selected for you. You can drag, click and zoom the graph to your desire. By clicking the graph or selecting a region in the tables you can view the actual region and its associated information.';
+								}
+								
+
+								if (SAMPLE_STAGE== 'TABLE') {
+
+									title = 'Region selected';
+									res = 
+									res = res + 'You have selected a region, in the right side you can view the actual alignment. In DNA alignments you should view a table with oligo information. Region\'s width can be modified to alter oligo\'s properties.';
+								}
+
+								
+								$('helpBOX').update(res);
+								$('sampleSTAGEBOX').update(title);
+								
+								$('sampleDIV').appear();
+				
+			}
+			
 			function deleteRun (id) {
 				
 				if (confirm('Do you want to delete the job?')){
@@ -159,7 +251,7 @@
 		    }				
 			}
 			
-			function showRun (jname,id,jobList) {
+			function showRun (jname,id,jobList,jobStatus) {
 				
 				run = null;
 				
@@ -168,6 +260,9 @@
 				$('graphMenuTable').hide();
 				$('contenidoRunTR').hide();
 				$('graphOptionsDiv').hide();
+				
+				$('sampleDIV').hide();
+
 				
 				if (jname!=id) {
 					$('JobNameSpan').update('  ('+jname+'/'+id+')');
@@ -184,7 +279,12 @@
 				
 				$('progresoGraph').show();// .defer();
 
-								
+				if ((jobStatus == 'SAMPLE DATA') || (SAMPLE_MODE))	{
+					$('sampleDIV').appear();					
+				}
+
+			 SAMPLE_STAGE='BROWSE';
+				populateSampleDIV();
 				
 				run = new TRun(id,jobList);
 				
@@ -200,6 +300,8 @@
 				
 
 		    $('barraProgreso').appear();
+		    
+		    
 				
 			}
 			
@@ -410,10 +512,30 @@
 											 <!-- iframe invisible para carga ficheros en background -->
 									    <!-- <iframe id="nullTarget" name="nullTarget" src="#" style="width:0;height:0;border:0px solid #fff;">
 									    </iframe> -->
+									  
 
+									    
 
 				          </form>
 								</div>
+								
+								  <table cellspacing="5" cellpadding="3" align="right" class="linksTable">
+													<tr>
+															<td>
+   														<a href="javascript:doSampleLogin();" > Try it!  </a>
+															</td>
+
+															<td>
+															<a href="../../bio/soft/alignminer/downloads/AlignMinerReadme.pdf">Readme</a>
+															</td>
+		
+															<td>
+															<a href="../../bio/soft/alignminer/downloads/seqtrim.zip">Download AlignMiner (XX MB)</a>
+															</td>
+
+															
+													</tr>
+													</table>
 
 							</td>
 							
@@ -999,6 +1121,36 @@
 		<!-- <img src="images/stage0.png" alt="" title="" class="hiddenImage" /> -->
 		
 	</body>
+	
+	<div id="sampleDIV" style="display:none;">
+	  <table width="100%">
+	  <tr>
+	  <td>
+		<span id="sampleSTAGEBOX" style="  font-weight:bold; ">
+		SAMPLE STAGE
+		</span>
+	  
+	  </td>
+	  <td style="display:none;text-align: right;">
+	  		<a href="javascript:hideSampleDIV();" style="text-align:right;">Close</a>
+	  </td>
+	  </tr>
+	  </table>
+	  
+	  <hr>
+	  
+	  <table>	  
+	  <tr>
+	  <td>
+	  <span id="helpBOX">
+		SAMPLE DATA
+		</span>	  
+	  </td>
+	  </tr>
+	  
+	  </table>
+
+  </div>
 	
 	<!-- hace el div redondo -->
 	<script type="text/javascript">

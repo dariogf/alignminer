@@ -102,6 +102,7 @@ foreach my $dir (@dirList) {
     
     # nombre del fichero info actual
     my $qInfoFile = $USER_DIR."$id/json/alignInfo.json";
+    my $lockFile = $USER_DIR."$id/LOCKED";
     
     
     $jobData{'id'} = $id;
@@ -134,7 +135,12 @@ foreach my $dir (@dirList) {
       }else{ # no existe el fichero run
         # si ha llegado al final
         if (defined($qinfo->{'stagesCount'}) and ($qinfo->{'stagesCount'} == $qinfo->{'stagesDone'})) {
-          $jobData{'status'}='DONE';
+        	if (-e $lockFile){
+              $jobData{'status'}='SAMPLE DATA';
+       		}else{
+		          $jobData{'status'}='DONE';
+        	}
+          
         }
       }
       

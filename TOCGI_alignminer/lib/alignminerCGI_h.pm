@@ -67,18 +67,25 @@ $VERSION     = "v 0.01";
                         )]);
 
 # our $UPLOAD_BASE_DIR= '/srv/www/htdocs/alignminer/tmpdata/';
-our $UPLOAD_BASE_DIR= '/export/home_users/home/soft/bioperl/tmpdata/';
 
+my $ALIGNMINER_RUN_MODE= 'development';
 
 our $ALIGNMENT_FILENAME= 'alignment.file';
 
-our $USING_BATCH = 1;
-# our $USING_BATCH = 0;
+	our $UPLOAD_BASE_DIR= '/export/home_users/home/soft/bioperl/tmpdata/';
+	our $USING_BATCH = 1;
+	our $ALIGNMINER_EXE = '/export/home_users/home/soft/bioperl/alignminer/alignMiner.pl';
+	our $QSUB_EXE = '/usr/bin/sudo -u bioperl /usr/pbs/bin/qsub';
 
-# our $ALIGNMINER_EXE = '/export/home_users/home/soft/bioperl/ambeta/alignMiner.pl';
-our $ALIGNMINER_EXE = '/export/home_users/home/soft/bioperl/alignminer/alignMiner.pl';
 
-our $QSUB_EXE = '/usr/bin/sudo -u bioperl /usr/pbs/bin/qsub';
+if ($ALIGNMINER_RUN_MODE eq 'development'){
+
+	 $UPLOAD_BASE_DIR= '/progs/tmpdata/';
+	 $USING_BATCH = 0;
+	 $ALIGNMINER_EXE = '/progs/alignminer/alignMiner.pl';
+	 $QSUB_EXE = 'bash';
+
+}
 
 our $RUNNING_FILE ='IS_RUNNING';
 our $SUBMITTED_FILE ='IS_SUBMITTED';

@@ -51,8 +51,11 @@ use File::Basename;
 # cambiar esto para despliegue
 # use lib '/Volumes/Documentos/Progs/bio/AlignMiner';
 # use lib '/usr/local/alignminer';
-use lib '/export/home_users/home/soft/bioperl/alignminer/';
 
+#use lib '/export/home_users/home/soft/bioperl/alignminer/';
+use lib dirname($0);
+
+print $0;
 
 # librerias bio
 use Bio::AlignIO;
@@ -145,6 +148,8 @@ my $inputfilename="";
         print("Usage: \n#>".basename($0)." filename USERID RUNID MASTER JOBNAME REAL_FILENAME ALIGNMENT_START ALIGNMENT_END (QUICKINFO|COMPLETE)\n\n");
         exit;
     }
+    
+    #print "Base dir:".$UPLOAD_BASE_DIR;
     
     $inputfilename=$ARGV[0];
 
