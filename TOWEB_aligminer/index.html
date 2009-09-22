@@ -109,10 +109,12 @@
 			
 			function doLogin () {
 				
-				var loginName = $('FLOGINNAME').value;
-				
-				jobList = new TJobList(loginName,'jobListRowDiv','wellcome');
-				jobList.checkUser(loginName);
+				LOGIN_NAME = $('FLOGINNAME').value;
+
+				SAMPLE_MODE = false
+
+				jobList = new TJobList(LOGIN_NAME,'jobListRowDiv','wellcome');
+				jobList.checkUser(LOGIN_NAME);
 				
 				if ((jobList!=undefined) & (jobList.validUser)) {
 					
@@ -146,14 +148,14 @@
 			
 			function doSampleLogin () {
 				
-				var loginName = 'amsample@scbi.uma.es'
+				LOGIN_NAME = 'amsample@scbi.uma.es'
 				//$('FLOGINNAME').value;
 				
 				SAMPLE_MODE = true
 				SAMPLE_STAGE= 'SUBMIT'
 				
-				jobList = new TJobList(loginName,'jobListRowDiv','wellcome');
-				jobList.checkUser(loginName);
+				jobList = new TJobList(LOGIN_NAME,'jobListRowDiv','wellcome');
+				jobList.checkUser(LOGIN_NAME);
 				
 				if ((jobList!=undefined) & (jobList.validUser)) {
 					
@@ -228,7 +230,10 @@
 								$('helpBOX').update(res);
 								$('sampleSTAGEBOX').update(title);
 								
-								$('sampleDIV').appear();
+								if (SAMPLE_MODE) {
+										$('sampleDIV').appear();
+								}
+
 				
 			}
 			
@@ -236,7 +241,8 @@
 				
 				if (confirm('Do you want to delete the job?')){
 						var runid =id;
-						var userid = $('FLOGINNAME').value;
+						var userid = LOGIN_NAME; 
+						//$('FLOGINNAME').value;
 
 				    if ((runid!='') & (userid!='')){
 
@@ -308,7 +314,7 @@
 			function doRun () {
 				
 				var runid =$('FRUNID').value;
-				var userid = $('FLOGINNAME').value;
+				var userid = LOGIN_NAME;//$('FLOGINNAME').value;
 				var master = $('sequenceList').value;
 				var alignment_start = $('FALIGNMENT_START').value;
 				var alignment_end = $('FALIGNMENT_END').value;
