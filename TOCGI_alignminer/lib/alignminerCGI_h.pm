@@ -68,7 +68,8 @@ $VERSION     = "v 0.01";
 
 # our $UPLOAD_BASE_DIR= '/srv/www/htdocs/alignminer/tmpdata/';
 
-my $ALIGNMINER_RUN_MODE= 'development';
+#my $ALIGNMINER_RUN_MODE= 'development';
+my $ALIGNMINER_RUN_MODE= 'production';
 
 our $ALIGNMENT_FILENAME= 'alignment.file';
 

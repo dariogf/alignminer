@@ -85,7 +85,8 @@ our $BASE_OUTPUT_DIR= '/export/home_users/home/soft/bioperl/tmpdata/';
 our $ALIGNMINER_INSTALL_DIR = '/export/home_users/home/soft/bioperl/alignminer/';
 
 
-my $ALIGNMINER_RUN_MODE= 'development';
+#my $ALIGNMINER_RUN_MODE= 'development';
+my $ALIGNMINER_RUN_MODE= 'production';
 
 if ($ALIGNMINER_RUN_MODE eq 'development'){
 
