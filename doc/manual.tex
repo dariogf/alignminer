@@ -123,7 +123,9 @@ This document is only a quick guide to AlignMiner, if you need an in-depth expla
 
 The first action you need to do in order to use Alignminer is to do a login in the system. Enter any valid email in the form of the main page, as seen in the following picture:
 
-		%\includegraphics[width=.8\linewidth]{pics/login.jpg}
+\begin{center}
+		\includegraphics[width=.5\linewidth]{pics/login.jpg}
+\end{center}
 
 Once logged in, you can choose between submitting new jobs, or browse already sent ones.
 
@@ -133,23 +135,34 @@ To submit a new job for execution, you need to upload a file that contains a val
 
 You may also provide a name for the job. If not an automatically generated number is assigned.
 
-Click send button to submit the file.
+Click \textbf{send} button to submit the file.
 
-		%\includegraphics[width=.8\linewidth]{pics/submit.jpg}
-		
-When the file has been successfully uploaded to our servers, you will see a new form where you can select some parameters:
+\begin{center}
+		\includegraphics[width=.6\linewidth]{pics/submit.jpg}
+\end{center}
+
+When the file has been successfully uploaded to our servers, you will see a new form (and some useful information) where you can select some parameters:
+
+\begin{center}
+		\includegraphics[width=\linewidth]{pics/params.jpg}
+\end{center}
 
 \begin{itemize}
-\item Master sequence: you can select a master sequence from the popup to be used by scoring methods. If you don't select a Master sequence, then a consensus of the whole alignment is calculated.
-\item Alignment subset: with this parameters you can force AlignMiner to use only a portion of the alignment. If you leave both fields with zero, then an automatic range will be calculated, and weak ends (those with little information) of the alignment will be cropped.
+\item Master sequence: you can select a master sequence from the popup to be used by scoring methods. If you don't select a master sequence, then a consensus of the whole alignment is calculated.
+\item Alignment subset: with this parameter you can force AlignMiner to use only a portion of the alignment. If you leave both fields with zeroes, then an automatic range will be calculated, and weak ends (those with little information) of the alignment will be cropped.
 \end{itemize}
 
-Click Run when you have modified the desired parameters. You have just sent the job for execution and the job should appear in the job list:
+Click \textbf{run} when you have modified the desired parameters. You have just sent the job for execution and the job should appear in the job list:
 
-		%\includegraphics[width=.8\linewidth]{pics/run.jpg}
-
+\begin{center}
+		\includegraphics[width=\linewidth]{pics/joblist.jpg}
+\end{center}
 
 Actually, the job is run in our supercomputers using a batch queue system, because of that you can view different status of execution in the job list:
+
+\begin{center}
+		\includegraphics[width=.6\linewidth]{pics/run.jpg}
+\end{center}
 
 \begin{itemize}
 \item Waiting run: the job has just been uploaded and is waiting you to click the RUN button.
@@ -167,11 +180,15 @@ Jobs are saved for later browsing, so you can access the system at any time and 
 
 If you click on a job name, you get a list of available scoring methods:
 
-		%\includegraphics[width=.8\linewidth]{pics/methods.jpg}
+\begin{center}
+		\includegraphics[width=.8\linewidth]{pics/methods.jpg}
+\end{center}
 		
 When a scoring method is selected, a graph is shown with the visual representation of the results. You can drag, zoom or click the graph to your desire:
 
-		%\includegraphics[width=.8\linewidth]{pics/graph.jpg}
+\begin{center}
+		\includegraphics[width=\linewidth]{pics/graph.jpg}
+\end{center}
 
 Below the graph, the interesting regions that have been found are presented in tables. You can sort the results by clicking on the column titles. When you click on a row (a region of interest), its corresponding alignment is show at the right of the page. In DNA alignments, characteristics of a putative oligo that uses this region are also calculated. You can change the oligo's width by clicking on the arrows, and its characteristics will be calculated again for you.
 
