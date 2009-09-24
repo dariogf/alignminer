@@ -82,12 +82,13 @@
 \fi
 
 
- \title{User manual\\AlignMiner}
+ \title{\textbf{AlignMiner v 1.0}\\
+		Quick Tutorial}
  
- \author{Darío Guerrero and 
-         Rocío Bautista and 
+ \author{Darío Guerrero, 
+         Rocío Bautista, and 
          M. Gonzalo Claros \\
-         Plataforma Andaluza de Bioinformática\\ Universidad de Málaga\\ Severo Ochoa, 34\\ 29590 Málaga, Spain
+         Plataforma Andaluza de Bioinformática\\ Universidad de Málaga (Spain)
       }
     
 % 
@@ -108,10 +109,10 @@
 %\end{abstract}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Introduction}\label{sec:introduction} % (fold)
+%\section{Introduction}\label{sec:introduction} % (fold)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-This document is only a quick guide to AlignMiner, if you need an in-depth explanation you should read the article "XXXXX".
+{\small This document is only a quick guide to AlignMiner. An in-depth explanation will soon be available when the article that describes it will be published}.
 
 % section introduccion (end)
 
@@ -119,78 +120,78 @@ This document is only a quick guide to AlignMiner, if you need an in-depth expla
 
 
 
-\subsection{Login in the system}
+\subsection*{System login}
 
-The first action you need to do in order to use Alignminer is to do a login in the system. Enter any valid email in the form of the main page, as seen in the following picture:
+First to do in order to use AlignMiner is to allocate your data in the system by a login with your e-mail. Enter any valid email in the form of the main page, as seen in the following picture:
 
 \begin{center}
 		\includegraphics[width=.5\linewidth]{pics/login.jpg}
 \end{center}
 
-Once logged in, you can choose between submitting new jobs, or browse already sent ones.
+Once logged in, you can choose between submitting new jobs or browse already sent ones.
 
-\subsection{Submit a new job}
+\subsection*{Submiting a new job}
 
-To submit a new job for execution, you need to upload a file that contains a valid alignment. AlignMiner supports a wide variety of formats (fasta, clustal, msf, ...), so you can try to upload your alignment files without any conversion. Select the alignment to upload using the file field.
+Submitting new jobs include uploading a file containing a valid alignment. AlignMiner supports a wide variety of formats (fasta, clustal, msf, ...), so you can try to upload yours without any conversion. Select the alignment to upload using the ``\textbf{Browse...}'' button or write the path in the `\textbf{`File}'' field.
 
-You may also provide a name for the job. If not an automatically generated number is assigned.
-
-Click \textbf{send} button to submit the file.
+You may also provide a name for the job. If not, an automatically generated number is assigned.
 
 \begin{center}
 		\includegraphics[width=.6\linewidth]{pics/submit.jpg}
 \end{center}
 
-When the file has been successfully uploaded to our servers, you will see a new form (and some useful information) where you can select some parameters:
+Click ``\textbf{Send}'' button to submit the file.
+
+When the file has been successfully uploaded, you will see a new form (and some useful information on the right) where you can select some parameters:
 
 \begin{center}
 		\includegraphics[width=\linewidth]{pics/params.jpg}
 \end{center}
 
 \begin{itemize}
-\item Master sequence: you can select a master sequence from the popup to be used by scoring methods. If you don't select a master sequence, then a consensus of the whole alignment is calculated.
-\item Alignment subset: with this parameter you can force AlignMiner to use only a portion of the alignment. If you leave both fields with zeroes, then an automatic range will be calculated, and weak ends (those with little information) of the alignment will be cropped.
+\item \textbf{Master sequence}: you can select a master sequence from the popup in order to compare all sequences with respect to the master. If you don't select a master sequence,  a consensus of the whole alignment is then calculated and used as reference.
+\item \textbf{Alignment subset}: this enables you to force AlignMiner to analyze only a portion of the alignment. If you leave both fields with zeroes, an automatic range will then be calculated, and weak ends (those with little information) of the alignment will be cropped.
 \end{itemize}
 
-Click \textbf{run} when you have modified the desired parameters. You have just sent the job for execution and the job should appear in the job list:
+Click ``\textbf{Run}'' button to send the job for execution to a batch queue. Your job will appear in the job list
 
 \begin{center}
 		\includegraphics[width=\linewidth]{pics/joblist.jpg}
 \end{center}
 
-Actually, the job is run in our supercomputers using a batch queue system, because of that you can view different status of execution in the job list:
+as well as the execution status:
 
 \begin{center}
 		\includegraphics[width=.6\linewidth]{pics/run.jpg}
 \end{center}
 
 \begin{itemize}
-\item Waiting run: the job has just been uploaded and is waiting you to click the RUN button.
-\item Queued: the job has been sent to the batch system and is waiting for resources to be available for execution.
-\item Running: the job is running. In the STEP column you can see the completed phases.
-\item Done: the job is done and available for browsing.
-\item Error: there has been an error that prevents the job from executing correctly. Check the small info icon for more information.
+\item \textsc{Waiting run}: the job has just been uploaded and is waiting for you to click on the ``\textbf{Run}'' button.
+\item \textsc{Queued}: the job has been sent to the batch system and is waiting for resources for execution.
+\item \textsc{Running}: the job is running. The STEP column is displaying the completed steps.
+\item \textsc{Done}: the job is done and available for browsing.
+\item \textsc{Error}: there has been an error that prevents the correct execution. You can check the small info icon for more information.
 \end{itemize}
 
-Once a job is submitted you can close the system and come later to see its status, or wait it to finish.
+You can close the system and come later to see your job status, or wait until finishing.
 
-\subsection{Browse existing jobs}
+\subsection*{Browsing previous jobs}
 
-Jobs are saved for later browsing, so you can access the system at any time and choose a job from the job list to browse its results.
+Jobs are saved for further browsing, so you can access the system at any time and choose a job from the job list and browse the results.
 
-If you click on a job name, you get a list of available scoring methods:
+If you click on a job name, you get a list of available scoring methods, taking into account that ADNW is only available for nucleic acid alignments, not for protein alignments:
 
 \begin{center}
 		\includegraphics[width=.8\linewidth]{pics/methods.jpg}
 \end{center}
 		
-When a scoring method is selected, a graph is shown with the visual representation of the results. You can drag, zoom or click the graph to your desire:
+When a scoring method is selected, a graph is shown for the visual representation of results. You can drag, zoom or click the graph on your own:
 
 \begin{center}
 		\includegraphics[width=\linewidth]{pics/graph.jpg}
 \end{center}
 
-Below the graph, the interesting regions that have been found are presented in tables. You can sort the results by clicking on the column titles. When you click on a row (a region of interest), its corresponding alignment is show at the right of the page. In DNA alignments, characteristics of a putative oligo that uses this region are also calculated. You can change the oligo's width by clicking on the arrows, and its characteristics will be calculated again for you.
+Below the graph, the interesting regions that have been found are presented in tables. You can sort tables by clicking on a column title. When you click on a row (a region of interest), its corresponding alignment is show on the right of the table. In DNA alignments, characteristics of a putative primer based on this region are also calculated. You can change the primer width by clicking on the arrows, and its characteristics will be re-calculated for this new sequence window.
 
 % section futuro (end)
 
