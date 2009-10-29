@@ -547,7 +547,12 @@ sub _calculate {
     my $below = AM::TRegionListAM->new($self->name.'_below',sub {$_[0]<=$_[1]},$self->limit1,$self->alignAM,0,\@a);
     my $above = AM::TRegionListAM->new($self->name.'_above',sub {$_[0]>=$_[1]},$self->limit2,$self->alignAM,0,\@a);
     
-    my $snp = AM::TRegionListAM->new($self->name.'_snp',sub {$_[0]<=$_[1]},$self->limit1,$self->alignAM,1,\@a);
+    
+#		if ($self->alignAM->alphabet eq 'protein') { 
+#    	my $snp = AM::TRegionListAM->new($self->name.'_snp',sub {$_[0]<=$_[1]},$self->limit1,$self->alignAM,0,\@a);
+#    }else{
+    	my $snp = AM::TRegionListAM->new($self->name.'_snp',sub {$_[0]<=$_[1]},$self->limit1,$self->alignAM,1,\@a);
+#    }
     
     $snp->save_stats();
     
@@ -556,10 +561,19 @@ sub _calculate {
     $self->snpRegionList($snp);
     
     # SHOW-DONE -Mostrar nuevas regiones con corte mad(FFT), 
+
+    my $belowFFT;
+    my $aboveFFT;
     
     # regiones para fft
-    my $belowFFT = AM::TRegionListAM->new($self->name.'_belowFFT',sub {$_[0]<=$_[1]},$self->limit1FFT,$self->alignAM,0,\@afft,$below);
-    my $aboveFFT = AM::TRegionListAM->new($self->name.'_aboveFFT',sub {$_[0]>=$_[1]},$self->limit2FFT,$self->alignAM,0,\@afft,$above);
+    # Si es adn se filtra con las regiones de arriba, si no no se filtra
+    if ($self->alignAM->alphabet eq 'protein') { 
+ 	     $belowFFT = AM::TRegionListAM->new($self->name.'_belowFFT',sub {$_[0]<=$_[1]},$self->limit1FFT,$self->alignAM,0,\@afft);
+  	   $aboveFFT = AM::TRegionListAM->new($self->name.'_aboveFFT',sub {$_[0]>=$_[1]},$self->limit2FFT,$self->alignAM,0,\@afft);  	 	
+  	 }else{
+	     $belowFFT = AM::TRegionListAM->new($self->name.'_belowFFT',sub {$_[0]<=$_[1]},$self->limit1FFT,$self->alignAM,0,\@afft,$below);
+  	   $aboveFFT = AM::TRegionListAM->new($self->name.'_aboveFFT',sub {$_[0]>=$_[1]},$self->limit2FFT,$self->alignAM,0,\@afft,$above);
+  	 }
     
     $belowFFT->save_stats();
     $aboveFFT->save_stats();

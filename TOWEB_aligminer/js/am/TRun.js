@@ -326,7 +326,7 @@ var TRun = Class.create({
       
       this.currentGraph.graphBoard.centerGraphsAt(cpos,cpos,1,false,false);
       
-      self.redrawPositions();
+      this.redrawPositions();
       
       // this.currentGraph.graphBoard.paint(false);
       
