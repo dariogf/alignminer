@@ -201,8 +201,23 @@
 
 									title = 'Submit and browse';
 									res = 
-									res = res + 'You can browse existing jobs in the JOB LIST section or submit a new one using the SUBMIT form. Use this <a href="data/alignment.txt" target="_blank">sample data</a> to test the submit procedure if you like. Otherwise, click on an existing job to view its results.';																	
+									res = res + 'You can browse existing jobs in the JOB LIST section or submit a new one using the SUBMIT form. Download this sample data (<a href="data/GS1_oryza_dna.mul" target="_blank">dna</a> | <a href="data/GS1_oryza_protein.mul" target="_blank">protein</a>) and use it to test the submit procedure if you like. Otherwise, click on an existing job to view its results.';																	
 								}
+								
+								if (SAMPLE_STAGE== 'SUBMITTED') {
+
+									title = 'File submitted';
+									res = 
+									res = res + 'You have just submitted a new job. Change params values if you like and click RUN to send the job for processing.';																	
+								}
+								
+								if (SAMPLE_STAGE== 'RUNNING') {
+
+									title = 'Job is processing';
+									res = 
+									res = res + 'The job has been sent to the queue system, it should be running in a few moments. Once it is done, you can browse it by clicking on its name.';
+								}
+
 								
 								if (SAMPLE_STAGE== 'BROWSE') {
 
@@ -342,6 +357,10 @@
 		    $('formsDiv').appear();
 				$('informationDIV').fade();
 				
+ 			 SAMPLE_STAGE='RUNNING';
+				populateSampleDIV();
+
+				
 			}
 			
 			//----------------------------------
@@ -379,6 +398,11 @@
 		    // alert('llega2');
 
 		    // return true;
+		    
+		    
+  			 SAMPLE_STAGE='SUBMITTED';
+				populateSampleDIV();
+
 		  }
 		  
 					
@@ -1137,7 +1161,7 @@
 		</span>
 	  
 	  </td>
-	  <td style="display:none;text-align: right;">
+	  <td style="text-align: right;">
 	  		<a href="javascript:hideSampleDIV();" style="text-align:right;">Close</a>
 	  </td>
 	  </tr>
