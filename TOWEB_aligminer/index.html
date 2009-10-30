@@ -199,16 +199,16 @@
 				
 								if (SAMPLE_STAGE== 'SUBMIT') {
 
-									title = 'Submit and browse';
+									title = 'Send and browse jobs';
 									res = 
-									res = res + 'You can browse existing jobs in the JOB LIST section or submit a new one using the SUBMIT form. Download this sample data (<a href="data/GS1_oryza_dna.mul" target="_blank">dna</a> | <a href="data/GS1_oryza_protein.mul" target="_blank">protein</a>) and use it to test the submit procedure if you like. Otherwise, click on an existing job to view its results.';																	
+									res = res + 'You can browse existing jobs in the JOB LIST section or submit a new one by selecting a file ("<b>Browse</b>" button) and clicking on "<b>Send</b>". Download this sample data (<a href="data/GS1_oryza_dna.mul" target="_blank">dna</a> | <a href="data/GS1_oryza_protein.mul" target="_blank">protein</a>) and use it to test the submit procedure if you like. Otherwise, click on an existing job to view its results.';																	
 								}
 								
 								if (SAMPLE_STAGE== 'SUBMITTED') {
 
-									title = 'File submitted';
+									title = 'File sent, confirm submission';
 									res = 
-									res = res + 'You have just submitted a new job. Change params values if you like and click RUN to send the job for processing.';																	
+									res = res + 'You have just submitted a new job. Change params values if you like and click "<b>Confirm submission</b>" to send the job for processing. You can also click on "<b>Abort submission</b>" if you want to start again.';
 								}
 								
 								if (SAMPLE_STAGE== 'RUNNING') {
@@ -358,6 +358,42 @@
 				$('informationDIV').fade();
 				
  			 SAMPLE_STAGE='RUNNING';
+				populateSampleDIV();
+
+				
+			}
+			
+			function abortRun() {
+				
+				if (confirm('Do you want to abort the job?')){
+				
+				var runid =$('FRUNID').value;
+				var userid = LOGIN_NAME;//$('FLOGINNAME').value;
+				
+				    if ((runid!='') & (userid!='')){
+
+				    // delete de job
+				      new Ajax.Request('/cgi-bin/alignminer/deleteJob.cgi', {
+				          method: 'get',
+				          parameters: {FRUNID: runid, USERID: userid},
+									onSuccess: function (obj) {
+										jobList.startPolling(1);
+									}
+				      });
+					}
+		    }				
+				
+				jobList.startPolling(3);
+				
+				ensureShow('rowJOBLIST','jobListToggleImg',0.4);
+				
+				$('formsDiv').hide();
+		    $('formRunDIV').hide();
+		    $('formFileUploadDIV').show();
+		    $('formsDiv').appear();
+				$('informationDIV').fade();
+				
+ 			 SAMPLE_STAGE='SUBMIT';
 				populateSampleDIV();
 
 				
@@ -771,8 +807,12 @@
 												<!-- <input type="submit" name="submitBtn" class="sbtn" value="Run" /> -->
 												<input id="FRUNID" type="HIDDEN" name="FRUNID" value="0"/>
 												
-												<input type = "button" value = "Run" onclick = "doRun();"/>
+												</p>
+												<p style="text-align: right; margin-right: 15px;">
 												
+												<input type = "button" value = "Abort submission" onclick = "abortRun();"/>
+												&nbsp;&nbsp;&nbsp;
+												<input type = "button" value = "Confirm submission" onclick = "doRun();"/>												
 											</p> <!-- fin contenido visible formulario -->
 		                 	</form> <!-- fin formulario para ejecutar el RUN -->
 									</div>

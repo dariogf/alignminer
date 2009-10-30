@@ -51,7 +51,7 @@ var TRun = Class.create({
   //----------------------------------
   loadRun: function(){
     var a;
-
+	  
     var tr = $('graphMenuRow');
     
     tr.update('');
@@ -63,7 +63,7 @@ var TRun = Class.create({
     };
     
     if (alp!='protein'){
-          this.adnWGraph = this.getGraphTD('adnW','ADNW','Similarity',tr);
+          this.adnWGraph = this.getGraphTD('adnW','DNAW','Similarity',tr);
     };
     
     this.generalWGraph = this.getGraphTD('generalW','WEIGHTED','Similarity',tr);
