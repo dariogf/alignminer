@@ -77,6 +77,32 @@ sub saveToMatlab {
     my $i=0;
     my $j="";
     
+#    print FILE $gname,"=[";
+    
+    foreach my $e (@a) {
+        print FILE "$i\t$e\n";
+        $j=',';
+        $i++;
+    }
+    
+#    print FILE "];";
+    
+    close(FILE);
+    
+}#saveToMatlab
+
+sub saveToMatlab_orig {
+    
+    my ($filename,$gname,@a) = @_;
+    
+    open (FILE, ">$filename");
+    
+    # print "Saving to Matlab ($gname) en ($filename).\n";
+    
+    # write to file in csv format
+    my $i=0;
+    my $j="";
+    
     print FILE $gname,"=[";
     
     foreach my $e (@a) {
