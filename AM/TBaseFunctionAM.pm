@@ -703,7 +703,7 @@ sub graph {
     
     # my $graphAM=AM::TGraphAM->new($self->name,$self->xlabel,$self->ylabel);
     #     my @a = $self->array();
-    #     my @afft = $self->arrayfft();
+         my @afft = $self->arrayfft();
     #     
     #     $graphAM->addGraphComponent('array',\@a,$self->name,"red");
     #     $graphAM->addGraphComponent('limit',$self->limit1,'Lim 1',"dark-red");
@@ -716,7 +716,7 @@ sub graph {
     #     $graphAM->doPaint();
     #     
     #     saveToMatlab("$MATLAB_OUTPUT_DIR" . $self->name() . ".m",$self->name(),@a);
-    #     saveToMatlab("$MATLAB_OUTPUT_DIR" . $self->name() . "fft.m",$self->name()."fft",@afft);
+         saveToMatlab("$MATLAB_OUTPUT_DIR" . $self->name() . "fft.m",$self->name()."fft",@afft);
     #     
     
 }#graph
