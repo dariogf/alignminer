@@ -78,7 +78,7 @@ $VERSION     = "v 0.01";
 			                      $SUBMITTED_FILE
                         )]);
 
-our $AMVERSION = '109';
+our $AMVERSION = '110';
 
 
 our $BASE_OUTPUT_DIR= '/export/home_users/home/soft/bioperl/tmpdata/';

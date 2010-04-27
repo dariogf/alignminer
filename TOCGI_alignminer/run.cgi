@@ -113,7 +113,7 @@ my $fileDest = "$UPLOAD_BASE_DIR$userId/$runidcgi/$ALIGNMENT_FILENAME";
           
         }else{
           # lanzar proceso de calculo alignminer, parece que tiene que estar en CGI-Executables o no anda por el -T (tainted)
-          system($ALIGNMINER_EXE,$fileDest,$userId,$runidcgi,$master, $jobName, $real_filename,$alignment_start,$alignment_end,'COMPLETE');
+          system($ALIGNMINER_EXE,$fileDest,$userId,$runidcgi,$master, $jobName, $real_filename,$alignment_start,$alignment_end,0,'COMPLETE');
         }
         
         # terminar respuesta html

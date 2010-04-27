@@ -144,8 +144,8 @@ my $inputfilename="";
     my $alignment_end = 0;
 
     # si no hay parametros mostrar info
-    if (!($argc == 9)) {
-        print("Usage: \n#>".basename($0)." filename USERID RUNID MASTER JOBNAME REAL_FILENAME ALIGNMENT_START ALIGNMENT_END (QUICKINFO|COMPLETE)\n\n");
+    if (!($argc == 10)) {
+        print("Usage: \n#>".basename($0)." filename USERID RUNID MASTER JOBNAME REAL_FILENAME ALIGNMENT_START ALIGNMENT_END DO_KALIGN (QUICKINFO|COMPLETE)\n\n");
         exit;
     }
     
@@ -166,7 +166,9 @@ my $inputfilename="";
     $alignment_start = $ARGV[6];
     $alignment_end = $ARGV[7];
     
-    $mode = $ARGV[8];
+    my $kalign = $ARGV[8];
+    
+    $mode = $ARGV[9];
 # }
 # 
 # # obtener un numero unico para identificar el proceso
@@ -200,9 +202,14 @@ if ($mode eq "QUICKINFO") {
 
 $logger = setupLogging($OUTPUT_DIR.$logFileName);
 
-$logger->info("Starting execution: $USERID, $RUNID, $MASTER, $JOBNAME, $REAL_FILENAME, $mode");
+$logger->info("Starting execution: $0,".join($ARGV,','));
 
 $logger->info("AlignMiner version: $AMVERSION");
+
+if ($kalign) {
+	`mv $inputfilename kalign_input`;
+	`kalign -i kalign_input -o $inputfilename`;	
+}
 
 
 # nuevo objeto de alineamientos
