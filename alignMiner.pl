@@ -183,6 +183,7 @@ my $inputfilename="";
 
 my($fn, $dir, $ext) =fileparse($inputfilename);
 $OUTPUT_DIR = "$dir";
+`/bin/logger $OUTPUT_DIR`;
 
 $GRAPH_OUTPUT_DIR = $OUTPUT_DIR.'graphs/';
 $DATA_OUTPUT_DIR = $OUTPUT_DIR.'data/';
@@ -211,8 +212,15 @@ $logger->info("AlignMiner version: $AMVERSION");
 
 if ($kalign) {
 	$logger->info("Executing KALIGN2");
-	`mv $inputfilename $OUTPUT_DIR/kalign_input`;
-	`kalign -i $OUTPUT_DIR/kalign_input -o $inputfilename`;	
+	my $cmd1 ="/bin/mv $inputfilename $OUTPUT_DIR"."kalign_input"; 
+	system($cmd1);
+	`/bin/logger "CMD1:$cmd1"`;
+
+	#my $cmd2 ="/usr/bin/kalign -i $OUTPUT_DIR"."kalign_input -o $inputfilename 2> $OUTPUT_DIR"."kalign.log";
+	my $cmd2 ="/usr/bin/kalign -q -i $OUTPUT_DIR"."kalign_input -o $inputfilename";
+	`/bin/logger "CMD2:$cmd2"`;
+	`$cmd2`;
+	`/bin/logger "EXECUTED KALIGN"`;
 		$logger->info("End of execution of KALIGN2");
 		$logger->info("With KALIGN2, the slice range will be automatically calculated despite of input values");
 		

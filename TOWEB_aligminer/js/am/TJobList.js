@@ -93,7 +93,7 @@ var TJobList = Class.create({
                 requestHeaders: {Accept: 'application/text'},
                 onSuccess: this.processReceivedJobList.bind(this)
               });
-          }).bind(this), 2);
+          }).bind(this), 10);
 
         
         };

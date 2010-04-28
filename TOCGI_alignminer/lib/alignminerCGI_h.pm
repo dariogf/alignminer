@@ -148,6 +148,7 @@ sub saveToEnviaSH {
 		#print FILE 'cd $PBS_O_WORKDIR',"\n";
 		
 		print FILE "cd $workDir","\n";
+		print FILE ". ~kalign/init_env","\n";
 		
 		#para darle permisos de lectura a wwwrun:
 		print FILE 'umask 0003',"\n";
