@@ -144,8 +144,8 @@ my $inputfilename="";
     my $alignment_end = 0;
 
     # si no hay parametros mostrar info
-    if (!($argc == 10)) {
-        print("Usage: \n#>".basename($0)." filename USERID RUNID MASTER JOBNAME REAL_FILENAME ALIGNMENT_START ALIGNMENT_END DO_KALIGN (QUICKINFO|COMPLETE)\n\n");
+    if (!($argc == 8)) {
+        print("Usage: \n#>".basename($0)." input_filename MASTER JOBNAME REAL_FILENAME ALIGNMENT_START ALIGNMENT_END DO_KALIGN (QUICKINFO|COMPLETE)\n\n");
         exit;
     }
     
@@ -153,22 +153,22 @@ my $inputfilename="";
     
     $inputfilename=$ARGV[0];
 
-    $USERID = $ARGV[1];
+    #$USERID = $ARGV[1];
     
     # run ID viene del padre
-    $RUNID = $ARGV[2];
+    #$RUNID = $ARGV[2];
     
-    my $MASTER=$ARGV[3];
+    my $MASTER=$ARGV[1];
     
-    my $JOBNAME = $ARGV[4];
-    my $REAL_FILENAME= $ARGV[5];
+    my $JOBNAME = $ARGV[2];
+    my $REAL_FILENAME= $ARGV[3];
     
-    $alignment_start = $ARGV[6];
-    $alignment_end = $ARGV[7];
+    $alignment_start = $ARGV[4];
+    $alignment_end = $ARGV[5];
     
-    my $kalign = $ARGV[8];
+    my $kalign = $ARGV[6];
     
-    $mode = $ARGV[9];
+    $mode = $ARGV[7];
 # }
 # 
 # # obtener un numero unico para identificar el proceso
@@ -179,7 +179,10 @@ my $inputfilename="";
 
 # print "Run ID : $runId";
 
-$OUTPUT_DIR = "$BASE_OUTPUT_DIR$USERID/$RUNID/";
+#$OUTPUT_DIR = "$BASE_OUTPUT_DIR$USERID/$RUNID/";
+
+my($fn, $dir, $ext) =fileparse($inputfilename);
+$OUTPUT_DIR = "$dir";
 
 $GRAPH_OUTPUT_DIR = $OUTPUT_DIR.'graphs/';
 $DATA_OUTPUT_DIR = $OUTPUT_DIR.'data/';
@@ -202,13 +205,19 @@ if ($mode eq "QUICKINFO") {
 
 $logger = setupLogging($OUTPUT_DIR.$logFileName);
 
-$logger->info("Starting execution: $0,".join($ARGV,','));
+$logger->info("Starting execution: $0,".join(',',@ARGV));
 
 $logger->info("AlignMiner version: $AMVERSION");
 
 if ($kalign) {
+	$logger->info("Executing KALIGN2");
 	`mv $inputfilename kalign_input`;
 	`kalign -i kalign_input -o $inputfilename`;	
+		$logger->info("End of execution of KALIGN2");
+		$logger->info("With KALIGN2, the slice range will be automatically calculated despite of input values");
+		
+		$alignment_start = 0;
+    $alignment_end = 0;
 }
 
 

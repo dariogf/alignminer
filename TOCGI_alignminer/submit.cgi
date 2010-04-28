@@ -57,7 +57,8 @@ sub save_file {
     my ($jobName) = ($_jobName =~ /^([\w\d\s\.\-]+)$/) if defined $_jobName;
     
     my $_kalign = $cgi->param('FKALIGN');
-    my ($kalign) = ($_kalign =~ /^([\w\d\s\.\-]+)$/) if defined $_kalign;
+    my ($kalign) = ('1') if defined $_kalign;
+    my ($kalign) = ('0') if !defined $_kalign;
     
     if (! defined $jobName){
     	$jobName = ''
