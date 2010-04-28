@@ -211,8 +211,8 @@ $logger->info("AlignMiner version: $AMVERSION");
 
 if ($kalign) {
 	$logger->info("Executing KALIGN2");
-	`mv $inputfilename kalign_input`;
-	`kalign -i kalign_input -o $inputfilename`;	
+	`mv $inputfilename $OUTPUT_DIR/kalign_input`;
+	`kalign -i $OUTPUT_DIR/kalign_input -o $inputfilename`;	
 		$logger->info("End of execution of KALIGN2");
 		$logger->info("With KALIGN2, the slice range will be automatically calculated despite of input values");
 		

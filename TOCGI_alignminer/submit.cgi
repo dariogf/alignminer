@@ -57,9 +57,8 @@ sub save_file {
     my ($jobName) = ($_jobName =~ /^([\w\d\s\.\-]+)$/) if defined $_jobName;
     
     my $_kalign = $cgi->param('FKALIGN');
-    my ($kalign) = ('1') if defined $_kalign;
-    my ($kalign) = ('0') if !defined $_kalign;
-    
+    my $kalign = '0';
+    $kalign = '1' if defined $_kalign;
     if (! defined $jobName){
     	$jobName = ''
     }
@@ -108,7 +107,7 @@ sub save_file {
       or cgiError($cgi, "Cannot copy submitted file to $fileDest");
     
     my $respid=undef;
-        
+	        
     if (!defined ($respid = fork)) { # error
         cgiError($cgi, "Cannot fork: $!");
     } elsif ($respid) { # padre
@@ -143,7 +142,9 @@ sub save_file {
         #system('/usr/bin/logger',$ALIGNMINER_EXE,$fileDest,$userEmail,$runidcgi,'QUICKINFO');
         
         # lanzar proceso de calculo alignminer, tiene que estar en CGI-Executables o no anda por el -T (tainted)
-        system($ALIGNMINER_EXE,$fileDest,$userEmail,$runidcgi,$master, $jobName, $real_filename,$alignment_start,$alignment_end,$kalign,"QUICKINFO");
+	
+        system($ALIGNMINER_EXE,$fileDest,$master, $jobName, $real_filename,$alignment_start,$alignment_end,$kalign,"QUICKINFO");
+        #system($ALIGNMINER_EXE,$fileDest,$userEmail,$runidcgi,$master, $jobName, $real_filename,$alignment_start,$alignment_end,$kalign,"QUICKINFO");
 
 
 # terminar respuesta html

@@ -153,7 +153,8 @@ sub saveToEnviaSH {
 		print FILE 'umask 0003',"\n";
 
 		# programa a ejecutar, con sus argumentos:
-		print FILE "/export/home_users/home/soft/bioperl/alignminer/alignMiner.pl $alignment $userId $runId \"$master\" \"$jobName\" \"$real_filename\" $alignment_start $alignment_end 0 COMPLETE\n";
+		#print FILE "/export/home_users/home/soft/bioperl/alignminer/alignMiner.pl $alignment $userId $runId \"$master\" \"$jobName\" \"$real_filename\" $alignment_start $alignment_end 0 COMPLETE\n";
+		print FILE "/export/home_users/home/soft/bioperl/alignminer/alignMiner.pl $alignment \"$master\" \"$jobName\" \"$real_filename\" $alignment_start $alignment_end 0 COMPLETE\n";
 		
     close(FILE);
     
