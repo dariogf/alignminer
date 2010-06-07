@@ -70,3 +70,16 @@
 .alignmentResultTable td{
 	background-color: #b9bbc0;
 }
+
+.AMDescriptionPeq {
+-x-system-font:none;
+color:#D0F0DE;
+font-family:Arial,Helvetica,sans-serif;
+font-size:12px;
+font-size-adjust:none;
+font-stretch:normal;
+font-style:normal;
+font-variant:normal;
+font-weight:normal;
+line-height:26px;
+}
